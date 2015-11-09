@@ -1,2 +1,8 @@
 # Installs latest available version of Sass.
-- gem: name=sass state=latest
+- name: Install sass
+  command: >
+    sudo gem install sass
+
+- name: Add sass symlink.
+  command: >
+    sudo ln -nfs /usr/local/bin/sass /usr/bin/sass
