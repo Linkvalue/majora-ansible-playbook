@@ -23,3 +23,10 @@
 
 - name: Install wkthtmltopdf package
   apt: deb=/opt/wkhtmltopdf/wkhtmltox-0.12.2.1_linux-trusty-amd64.deb state=installed
+
+- name: Create wkthtmltopdf package
+  apt: deb=/opt/wkhtmltopdf/wkhtmltox-0.12.2.1_linux-trusty-amd64.deb state=installed
+
+- name: Add wkthtmltopdf symlink.
+  command: >
+    sudo ln -nfs /usr/local/bin/wkhtmltopdf /usr/bin/wkhtmltopdf
