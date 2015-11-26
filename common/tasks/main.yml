@@ -24,17 +24,17 @@
   with_items:
     - language-pack-fr
     - build-essential
+    - software-properties-common
+    - python-software-properties
     - vim
     - zsh
     - acl
     - curl
     - wget
     - git
-    - git-core
     - python-pycurl
     - unzip
     - ntp
-    - bundler
 
 - name: Clone oh-my-zsh repo
   git: repo=https://github.com/robbyrussell/oh-my-zsh.git dest=/home/vagrant/.oh-my-zsh
