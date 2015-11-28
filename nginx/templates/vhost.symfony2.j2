@@ -12,18 +12,18 @@ server {
     error_log  /var/log/nginx/{{ item.name }}.error.log;
 
     # strip app.php/ prefix if it is present
-    rewrite ^/app\.php/?(.*)$ /$1 permanent;
+    rewrite ^/{{ item.app_name|default('app') }}\.php/?(.*)$ /$1 permanent;
     location / {
-        index app.php;
+        index {{ item.app_name|default('app') }}.php;
         try_files $uri @rewriteapp;
     }
 
     location @rewriteapp {
-        rewrite ^(.*)$ /app.php/$1 last;
+        rewrite ^(.*)$ /{{ item.app_name|default('app') }}.php/$1 last;
     }
 
     # pass the PHP scripts to FastCGI server from upstream phpfcgi
-    location ~ ^/(app|app_dev|config|apc-.*)\.php(/|$) {
+    location ~ ^/({{ item.app_name|default('app') }}|{{ item.app_name|default('app') }}_dev|config|apc-.*)\.php(/|$) {
         fastcgi_pass 127.0.0.1:9000;
         fastcgi_split_path_info ^(.+\.php)(/.*)$;
         include fastcgi_params;
