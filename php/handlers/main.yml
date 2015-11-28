@@ -1,2 +1,2 @@
-- name: Restart php5-fpm
-  action: service name=php5-fpm state=started enabled=true
+- name: Restart php7.0-fpm
+  action: service name=php7.0-fpm state=started enabled=true
