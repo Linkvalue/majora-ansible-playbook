@@ -1,0 +1,35 @@
+---
+
+- name: Add ondrej php5.5 ppa
+  apt_repository: repo="ppa:ondrej/php5" state=present
+  when: php_version == "5.5"
+
+- name: Add ondrej php5.6 ppa
+  apt_repository: repo="ppa:ondrej/php5-5.6" state=present
+  when: php_version == "5.6"
+
+- name: Install php5
+  apt: name={{item}} state=installed
+  with_items:
+    - php5-fpm
+    - php5-cli
+
+- name: Install php extensions
+  apt: name={{item}} state=installed
+  with_items: php5_extensions
+
+- name: Configure php5 cli
+  template: src=php.ini.j2 dest="/etc/php5/cli/php.ini" owner=root group=root mode=0644
+
+- name: Configure php5 fpm
+  template: src=php.ini.j2 dest="/etc/php5/fpm/php.ini" owner=root group=root mode=0644
+
+- name: Configure php5 fpm pools
+  template: src=php-fpm.pool.conf.j2 dest="/etc/php5/fpm/pool.d/{{item.name}}.conf" owner=root group=root mode=0644
+  with_items: fpm_pools
+
+- name: Configure php5 Xdebug
+  template: src=xdebug.ini.j2 dest="/etc/php5/fpm/conf.d/20-xdebug.ini" owner=root group=root mode=0644
+
+- name: Start php5 fpm
+  service: name="php5-fpm" state=started

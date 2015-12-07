@@ -1,5 +1,7 @@
+---
+
 - name: Commmon | Update repository
-  action: command /usr/bin/apt-get update
+  command: apt-get update --fix-missing
 
 - name: Set TZ config file
   template:
@@ -26,14 +28,15 @@
     - build-essential
     - software-properties-common
     - python-software-properties
+    - nano
     - vim
     - zsh
     - acl
     - curl
     - wget
     - git
-    - python-pycurl
     - unzip
+    - tar
     - ntp
 
 - name: Clone oh-my-zsh repo

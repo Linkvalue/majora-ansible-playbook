@@ -1,4 +1,5 @@
 ---
+
 - name: create sentinel working directory
   file: path={{ redis_sentinel_dir }} state=directory
         recurse=yes

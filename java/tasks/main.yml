@@ -1,6 +1,10 @@
 ---
-- include: oracle.yml
-#  when: java_versions is defined and java_versions is sequence and join(java_versions)|search("oracle")
 
-# - include: openjdk.yml
-#   when: java_versions is defined and java_versions is sequence and join(java_versions)|search("openjdk")
+- name: Add the webupd8 APT repository
+  apt_repository: repo=ppa:webupd8team/java state=present
+
+- name: Automatically select the Oracle License
+  shell: echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
+
+- name: Install Oracle Java
+  apt: pkg=oracle-java8-installer state=installed

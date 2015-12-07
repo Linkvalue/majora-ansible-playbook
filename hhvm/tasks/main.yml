@@ -1,3 +1,5 @@
+---
+
 - name: Add hhvm apt key
   apt_key: url=http://dl.hhvm.com/conf/hhvm.gpg.key state=present
 
