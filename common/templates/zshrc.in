@@ -9,7 +9,7 @@ export TERM="xterm-256color"
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 # ZSH_THEME="steeef"
-ZSH_THEME="{{ zsh_theme }}"
+ZSH_THEME="{{ zsh_theme|default('fishy') }}"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -50,3 +50,6 @@ alias ..="cd ../"
 alias ...="cd ../../"
 alias ....="cd ../../../"
 alias ......="cd ../../../../"
+
+# Script execution on terminal entering
+cd {{ workspace|default('/var/www') }}

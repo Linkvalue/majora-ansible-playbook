@@ -1,4 +1,5 @@
-# Installs latest available version of Sass.
+---
+
 - name: Install sass
   command: >
     sudo gem install sass

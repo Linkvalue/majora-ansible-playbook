@@ -1,0 +1,13 @@
+---
+
+- name: Add elasticsearch gpg key
+  shell: wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | apt-key add -
+
+- name: Add elasticsearch repo
+  shell: echo "deb http://packages.elastic.co/elasticsearch/2.x/debian stable main" | tee -a /etc/apt/sources.list.d/elasticsearch-2.x.list
+
+- name: Install elasticsearch
+  shell: apt-get update && apt-get install elasticsearch && update-rc.d elasticsearch defaults 95 10
+
+- name: Start Elasticsearch
+  service: name=elasticsearch state=started

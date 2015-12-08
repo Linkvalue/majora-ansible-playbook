@@ -29,7 +29,7 @@ group = {{ item.group|default('www-data') }}
 ;                            specific port;
 ;   '/path/to/unix/socket' - to listen on a unix socket.
 ; Note: This value is mandatory.
-listen = {{ item.listen|default('/var/run/php/php7.0-fpm.sock') }}
+listen = {{ item.listen|default('/var/run/php-fpm-'~item.name~'.sock') }}
 
 ; Set listen(2) backlog.
 ; Default Value: 128 (-1 on FreeBSD and OpenBSD)

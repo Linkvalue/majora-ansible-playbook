@@ -1,3 +1,5 @@
+---
+
 - name: Add the offical rabbitmq apt repository
   apt_repository: repo='deb http://www.rabbitmq.com/debian/ testing main' state=present
 

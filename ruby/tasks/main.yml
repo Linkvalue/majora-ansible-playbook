@@ -1,14 +1,8 @@
 ---
+
 - name: Install packages required to build ruby (Debian).
   apt: "name={{ item }} state=present"
   with_items:
-    - wget
-    - curl
-    - git
-    - tar
-    - vim
-    - nano
-    - build-essential
     - libcurl4-openssl-dev
     - libffi-dev
     - libgdbm-dev
@@ -20,25 +14,23 @@
     - libxml2-dev
     - libxslt1-dev
     - libyaml-dev
-    - python-software-properties
-    - software-properties-common
     - zlib1g-dev
 
 - name: Download ruby.
   get_url:
-    url: "{{ ruby_download_url }}"
-    dest: "{{ workspace }}/ruby-{{ ruby_version }}.tar"
+    url: "{{ ruby.download_url }}"
+    dest: "/home/vagrant/ruby-{{ ruby.version }}.tar"
 
 - name: Extract ruby.
   unarchive:
-    src: "{{ workspace }}/ruby-{{ ruby_version }}.tar"
-    dest: "{{ workspace }}/"
+    src: "/home/vagrant/ruby-{{ ruby.version }}.tar"
+    dest: "/home/vagrant/"
     copy: no
 
 - name: Build ruby.
   command: >
     {{ item }}
-    chdir={{ workspace }}/ruby-{{ ruby_version }}
+    chdir=/home/vagrant/ruby-{{ ruby.version }}
     creates=/usr/local/bin/ruby
   with_items:
     - ./configure --enable-shared

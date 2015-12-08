@@ -1,3 +1,5 @@
+---
+
 - name: create facts directory
   file: path='/etc/ansible/facts.d' state='directory'
 

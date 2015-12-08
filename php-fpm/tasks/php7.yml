@@ -1,0 +1,30 @@
+---
+
+- name: Add ondrej php7 ppa
+  apt_repository: repo="ppa:ondrej/php-7.0" state=present
+
+- name: Install php7
+  apt: name={{item}} state=installed
+  with_items:
+    - php7.0-fpm
+    - php7.0-cli
+
+- name: Install php extensions
+  apt: name={{item}} state=installed
+  with_items: php7_extensions
+
+- name: Configure php7 cli
+  template: src=php.ini.j2 dest="/etc/php/7.0/cli/php.ini" owner=root group=root mode=0644
+
+- name: Configure php7 fpm
+  template: src=php.ini.j2 dest="/etc/php/7.0/fpm/php.ini" owner=root group=root mode=0644
+
+- name: Configure php7 fpm pools
+  template: src=php-fpm.pool.conf.j2 dest="/etc/php/7.0/fpm/pool.d/{{item.name}}.conf" owner=root group=root mode=0644
+  with_items: fpm_pools
+
+- name: Configure php7 Xdebug
+  template: src=xdebug.ini.j2 dest="/etc/php/7.0/fpm/conf.d/20-xdebug.ini" owner=root group=root mode=0644
+
+- name: Start php7 fpm
+  service: name="php7.0-fpm" state=started
