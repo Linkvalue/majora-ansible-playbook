@@ -4,4 +4,5 @@ galaxy_info:
   description: Work in progress compilation of ansible playbooks
   company: Majora
   license: MIT
-  dependencies: []
+  
+dependencies: []
