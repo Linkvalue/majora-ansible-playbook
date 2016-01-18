@@ -1,0 +1,5 @@
+---
+
+- name: Install php7 extensions
+  apt: name={{ item }} state=present
+  with_items: php7_extensions

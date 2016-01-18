@@ -1,10 +1,10 @@
-upstream {{ item.upstream }} {
+upstream {{ item.upstream_name|default('nodejs') }} {
     server {{ item.node_host|default('127.0.0.1') }}:{{ item.node_port|default('3000') }};
 }
 
 server {
     listen {{ item.port|default('80') }};
-    server_name {{ item.server_name }} *.{{ item.server_name }};
+    server_name {{ item.server_name }};
 
     access_log  /var/log/nginx/{{ item.name }}.access.log;
     error_log  /var/log/nginx/{{ item.name }}.error.log;
@@ -15,7 +15,7 @@ server {
         proxy_set_header Host $http_host;
         proxy_set_header X-NginX-Proxy true;
 
-        proxy_pass http://{{ item.upstream }}/;
+        proxy_pass http://{{ item.upstream_name|default('nodejs') }}/;
         proxy_redirect off;
     }
 }

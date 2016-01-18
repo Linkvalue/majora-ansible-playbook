@@ -1,0 +1,4 @@
+---
+
+- name: Install rabbitmq management plugin
+  rabbitmq_plugin: names=rabbitmq_management

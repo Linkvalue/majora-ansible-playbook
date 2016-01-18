@@ -1,13 +1,20 @@
 ---
 
+- name: Check if elasticsearch is already installed
+  stat: path=/etc/elasticsearch
+  register: elasticsearch
+
 - name: Add elasticsearch gpg key
   shell: wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | apt-key add -
+  when: not elasticsearch.stat.exists
 
 - name: Add elasticsearch repo
-  shell: echo "deb http://packages.elastic.co/elasticsearch/2.x/debian stable main" | tee -a /etc/apt/sources.list.d/elasticsearch-2.x.list
+  shell: echo "deb http://packages.elastic.co/elasticsearch/{{ elasticsearch_version }}/debian stable main" > /etc/apt/sources.list.d/elasticsearch.list
+  when: not elasticsearch.stat.exists
 
 - name: Install elasticsearch
   shell: apt-get update && apt-get install elasticsearch && update-rc.d elasticsearch defaults 95 10
+  when: not elasticsearch.stat.exists
 
-- name: Start Elasticsearch
+- name: Start elasticsearch
   service: name=elasticsearch state=started

@@ -1,0 +1,14 @@
+---
+
+- name: Install php5 apache lib
+  apt: name={{ item }} state=present
+  with_items:
+    - libapache2-mod-php5
+
+- name: Configure php5 apache
+  template: src=php.ini.j2 dest=/etc/php5/apache2/php.ini owner=root group=root mode=0644
+
+- name: Configure php5 apache xdebug
+  template: src=xdebug.ini.j2 dest="/etc/php5/apache2/conf.d/20-xdebug.ini" mode=0644
+  notify:
+    - Restart apache2

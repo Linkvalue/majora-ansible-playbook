@@ -1,0 +1,5 @@
+---
+
+# Add this line to /etc/hosts VM (could be used to communicate with other VM)
+etc_hosts_lines:
+  - { ip: '127.0.0.1', name: 'localhost' }

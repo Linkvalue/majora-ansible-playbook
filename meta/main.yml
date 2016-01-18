@@ -1,8 +1,10 @@
 ---
+
+# Ansible Galaxy support
 galaxy_info:
   author: Majora
-  description: Work in progress compilation of ansible playbooks
+  description: Compilation of ansible playbooks. Optimized for Ubuntu distributions.
   company: Majora
   license: MIT
-  
+
 dependencies: []

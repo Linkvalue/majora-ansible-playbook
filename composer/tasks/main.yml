@@ -1,0 +1,13 @@
+---
+
+- name: Install/update composer
+  shell: >
+    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
+    composer self-update
+
+- name: Make sure vagrant user as .composer directory
+  file: dest=/home/vagrant/.composer state=directory owner=vagrant group=vagrant
+
+- name: Set github personal token for vagrant user
+  template: src=auth.json.j2 dest=/home/vagrant/.composer/auth.json owner=vagrant group=vagrant
+  when: composer_github_token != ''

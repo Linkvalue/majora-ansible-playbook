@@ -1,0 +1,20 @@
+---
+
+- name: Check if elasticsearch-river-jdbc is already installed
+  stat: path=/usr/share/elasticsearch/plugins/jdbc
+  register: es_river_jdbc
+
+- name: Install elasticsearch-river-jdbc
+  command: /usr/share/elasticsearch/bin/plugin --install jdbc --url http://xbib.org/repository/org/xbib/elasticsearch/plugin/elasticsearch-river-jdbc/1.4.4.5/elasticsearch-river-jdbc-1.4.4.5-plugin.zip
+  when: not es_river_jdbc.stat.exists
+
+- name: Install mysql-connector-java for elasticsearch-river-jdbc
+  shell: >
+    cd ~ && \
+    curl -o mysql-connector-java-5.1.31.zip -L 'http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.31.zip/from/http://cdn.mysql.com/' && \
+    unzip mysql-connector-java-5.1.31.zip && \
+    mv mysql-connector-java-5.1.31/mysql-connector-java-5.1.31-bin.jar /usr/share/elasticsearch/plugins/jdbc/ && \
+    rm -rf mysql-connector-java*
+  notify:
+    - Restart elasticsearch
+  when: not es_river_jdbc.stat.exists

@@ -1,0 +1,20 @@
+---
+
+- name: Install phantomjs dependencies
+  apt: name={{ item }} state=present
+  with_items:
+    - chrpath
+    - libssl-dev
+    - libxft-dev
+    - libfreetype6
+    - libfreetype6-dev
+    - libfontconfig1
+    - libfontconfig1-dev
+    - msttcorefonts
+    - ttf-mscorefonts-installer
+
+- name: Download phantomjs
+  shell: wget -qO - https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-{{ phantomjs_version }}-linux-x86_64.tar.bz2 | tar xjvf -
+
+- name: Install phantomjs
+  shell: mv phantomjs-{{ phantomjs_version }}-linux-x86_64/bin/phantomjs /usr/bin/phantomjs && rm -rf phantomjs-*

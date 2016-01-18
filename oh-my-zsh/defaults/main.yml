@@ -1,0 +1,7 @@
+---
+
+zsh_theme: 'fishy'
+
+zsh_editor: 'vim'
+
+workspace: '/var/www'

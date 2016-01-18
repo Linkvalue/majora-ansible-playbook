@@ -1,0 +1,11 @@
+---
+
+- name: Check if elasticsearch-kopf is already installed
+  stat: path=/usr/share/elasticsearch/plugins/kopf
+  register: es_kopf
+
+- name: Install elasticsearch-kopf
+  command: /usr/share/elasticsearch/bin/plugin install lmenezes/elasticsearch-kopf/{{ elasticsearch_kopf_branch }}
+  notify:
+    - Restart elasticsearch
+  when: not es_kopf.stat.exists

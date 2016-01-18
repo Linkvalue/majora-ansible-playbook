@@ -1,0 +1,45 @@
+---
+
+- name: Add mongodb gpg key
+  command: apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+
+- name: Add mongodb repo
+  shell: echo "deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen" > /etc/apt/sources.list.d/mongodb.list
+
+- name: Install mongodb
+  apt: name={{ item }} state=present update_cache=yes
+  with_items:
+    - mongodb-org
+    - python-pip
+
+- name: Install pymongo
+  pip: name=pymongo state=present
+
+- name: Configure mongodb without authentication
+  template: src=mongod-noauth.conf.j2 dest=/etc/mongod.conf
+
+- name: Start mongodb service without authentication
+  service: name=mongod state=restarted
+
+- name: Create mongodb users
+  mongodb_user: >
+    name={{ item.name }}
+    password={{ item.password|default(item.name)}}
+    database={{ item.database|default('admin') }}
+    state=present
+  with_items: mongodb.users
+  when: mongodb is defined and mongodb.users is defined
+
+- name: Configure mongodb with authentication
+  template: src=mongod.conf.j2 dest=/etc/mongod.conf
+
+- name: Start mongodb service with authentication
+  service: name=mongod state=restarted
+
+- name: Add chrislea mongo drivers ppa for ubuntu precise
+  apt_repository: repo="ppa:chris-lea/mongodb-drivers" state=present
+  when: (php_version is defined) and (ubuntu_version_name == 'precise')
+
+- name: Install php5 mongo extensions
+  apt: name=php5-mongo state=present
+  when: php_version is defined

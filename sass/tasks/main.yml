@@ -1,9 +1,7 @@
 ---
 
 - name: Install sass
-  command: >
-    sudo gem install sass
+  gem: name=sass state=present user_install=no
 
-- name: Add sass symlink.
-  command: >
-    sudo ln -nfs /usr/local/bin/sass /usr/bin/sass
+- name: Add sass symlink
+  file: src=/usr/local/bin/sass dest=/usr/bin/sass state=link force=yes

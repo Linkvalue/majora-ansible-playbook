@@ -1,0 +1,19 @@
+---
+
+common_packages:
+  - language-pack-fr
+  - build-essential
+  - software-properties-common
+  - python-software-properties
+  - nano
+  - vim
+  - zsh
+  - acl
+  - curl
+  - wget
+  - git
+  - unzip
+  - tar
+  - ntp
+
+timezone: 'UTC'

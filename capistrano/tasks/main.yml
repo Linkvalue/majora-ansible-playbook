@@ -1,5 +1,4 @@
 ---
 
 - name: Install capistrano
-  command: >
-    sudo gem install capistrano
+  gem: name=capistrano state=present user_install=no

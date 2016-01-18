@@ -1,0 +1,27 @@
+---
+
+- name: Add ondrej php5.4 ppa
+  apt_repository: repo="ppa:ondrej/php5-oldstable" state=present
+  when: php_version == '5.4'
+
+- name: Add ondrej php5.5 ppa
+  apt_repository: repo="ppa:ondrej/php5" state=present
+  when: php_version == '5.5'
+
+- name: Add ondrej php5.6 ppa
+  apt_repository: repo="ppa:ondrej/php5-5.6" state=present
+  when: php_version == '5.6'
+
+- name: Install php5
+  apt: name={{ item }} state=present
+  with_items:
+    - php5
+    - php5-dev
+    - php5-cli
+    - php-pear
+
+- name: Configure php5 cli
+  template: src=php.ini.j2 dest="/etc/php5/cli/php.ini" mode=0644
+
+- name: Configure php5 cli xdebug
+  template: src=xdebug.ini.j2 dest="/etc/php5/cli/conf.d/20-xdebug.ini" mode=0644

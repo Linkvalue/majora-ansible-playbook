@@ -1,0 +1,16 @@
+---
+
+- name: Add ondrej php7 ppa
+  apt_repository: repo="ppa:ondrej/php-7.0" state=present
+
+- name: Install php7
+  apt: name={{ item }} state=present
+  with_items:
+    - php7.0
+    - php7.0-cli
+
+- name: Configure php7 cli
+  template: src=php.ini.j2 dest="/etc/php/7.0/cli/php.ini" mode=0644
+
+- name: Configure php7 cli xdebug
+  template: src=xdebug.ini.j2 dest="/etc/php/7.0/cli/conf.d/20-xdebug.ini" mode=0644

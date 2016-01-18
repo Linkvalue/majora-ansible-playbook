@@ -1,7 +1,7 @@
 ---
 
-- name: Install wkhtmltopdf common packages
-  action: apt pkg={{item}} state=installed
+- name: Install wkhtmltopdf dependencies
+  apt: name={{ item }} state=present
   with_items:
     - libxrender1
     - x11-common
@@ -14,18 +14,20 @@
     - xfonts-utils
     - libjpeg-turbo8
 
-- name: Create the wkhtmltopdf app directory.
+- name: Create wkhtmltopdf app directory
   file: state=directory path=/opt/wkhtmltopdf
 
-- name: Fetching wkhtmltopdf archive
-  get_url: url=http://download.gna.org/wkhtmltopdf/0.12/0.12.2.1/wkhtmltox-0.12.2.1_linux-trusty-amd64.deb dest=/opt/wkhtmltopdf/wkhtmltox-0.12.2.1_linux-trusty-amd64.deb validate_certs=no
+- name: Download wkhtmltopdf
+  get_url:
+    url: 'http://download.gna.org/wkhtmltopdf/{{ wkhtmltopdf_version }}/{{ wkhtmltopdf_version_full }}/wkhtmltox-{{ wkhtmltopdf_version_full }}_linux-{{ ubuntu_version_name }}-amd64.deb'
+    dest: '/opt/wkhtmltopdf/wkhtmltox-{{ wkhtmltopdf_version_full }}_linux-{{ ubuntu_version_name }}-amd64.deb'
+    validate_certs: no
 
-- name: Install wkthtmltopdf package
-  apt: deb=/opt/wkhtmltopdf/wkhtmltox-0.12.2.1_linux-trusty-amd64.deb state=installed
+- name: Install wkthtmltopdf
+  apt: deb='/opt/wkhtmltopdf/wkhtmltox-{{ wkhtmltopdf_version_full }}_linux-{{ ubuntu_version_name }}-amd64.deb' state=present
 
-- name: Add wkthtmltopdf symlink.
+- name: Add wkthtmltopdf symlink
   file:
     src: /usr/local/bin/wkhtmltopdf
     dest: /usr/bin/wkhtmltopdf
     state: link
-    force: yes

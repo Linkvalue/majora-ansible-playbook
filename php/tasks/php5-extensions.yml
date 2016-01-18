@@ -1,0 +1,41 @@
+---
+
+- name: Install php5 extensions
+  apt: name={{ item }} state=present
+  with_items: php5_extensions
+
+- name: Install php redis extension
+  shell: >
+    test -f /etc/php5/mods-available/redis.ini || \
+    (pecl install redis && touch /etc/php5/mods-available/redis.ini && echo "extension=redis.so" > /etc/php5/mods-available/redis.ini)
+  when: ubuntu_version_name == 'precise'
+
+- name: Enable php redis extension for cli
+  file: src=/etc/php5/mods-available/redis.ini dest=/etc/php5/cli/conf.d/30-redis.ini state=link
+  when: ubuntu_version_name == 'precise'
+
+- name: Enable php redis extension for apache_mod_php
+  file: src=/etc/php5/mods-available/redis.ini dest=/etc/php5/apache2/conf.d/30-redis.ini state=link
+  when: (apache_mod_php is defined and apache_mod_php) and (ubuntu_version_name == 'precise')
+
+- name: Enable php redis extension for fpm
+  file: src=/etc/php5/mods-available/redis.ini dest=/etc/php5/fpm/conf.d/30-redis.ini state=link
+  when: (fpm is defined and fpm) and (ubuntu_version_name == 'precise')
+
+- name: Install php stomp extension
+  shell: >
+    test -f /etc/php5/mods-available/stomp.ini || \
+    (yes "no" | pecl install stomp && touch /etc/php5/mods-available/stomp.ini && echo "extension=stomp.so" > /etc/php5/mods-available/stomp.ini)
+  when: ubuntu_version_name == 'precise'
+
+- name: Enable php stomp extension for cli
+  file: src=/etc/php5/mods-available/stomp.ini dest=/etc/php5/cli/conf.d/30-stomp.ini state=link
+  when: ubuntu_version_name == 'precise'
+
+- name: Enable php stomp extension for apache_mod_php
+  file: src=/etc/php5/mods-available/stomp.ini dest=/etc/php5/apache2/conf.d/30-stomp.ini state=link
+  when: (apache_mod_php is defined and apache_mod_php) and (ubuntu_version_name == 'precise')
+
+- name: Enable php stomp extension for fpm
+  file: src=/etc/php5/mods-available/stomp.ini dest=/etc/php5/fpm/conf.d/30-stomp.ini state=link
+  when: (fpm is defined and fpm) and (ubuntu_version_name == 'precise')

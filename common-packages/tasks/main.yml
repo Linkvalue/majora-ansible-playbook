@@ -1,0 +1,21 @@
+---
+
+- name: Update apt-get repositories
+  apt: upgrade=yes update_cache=yes
+
+- name: Set timezone config file
+  template:
+    src=timezone.j2
+    dest=/etc/timezone
+
+- name: Set localtime config file
+  command: cp /usr/share/zoneinfo/{{ timezone }} /etc/localtime
+
+- name: Set .bash_aliases file
+  template:
+    src=bash_aliases.j2
+    dest=~/.bash_aliases
+
+- name: Install common packages
+  apt: name={{ item }} state=present
+  with_items: common_packages

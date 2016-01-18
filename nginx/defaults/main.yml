@@ -1,0 +1,5 @@
+---
+
+nginx: true
+
+nginx_package: 'nginx'

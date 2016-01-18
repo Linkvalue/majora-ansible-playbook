@@ -1,5 +1,0 @@
----
-
-- name: Forward SSH folder
-  sudo: no
-  copy: src={{ ssh_folder }} dest=~/.ssh mode=600
