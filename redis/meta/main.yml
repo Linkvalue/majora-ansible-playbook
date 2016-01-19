@@ -1,5 +1,4 @@
 ---
-
 galaxy_info:
   author: David Wittman
   description: Highly configurable role to install Redis and Redis Sentinel from source
@@ -17,3 +16,5 @@ galaxy_info:
   categories:
     - database
     - database:nosql
+
+dependencies: []

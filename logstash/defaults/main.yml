@@ -1,0 +1,14 @@
+---
+
+logstash_version: '2.1'
+
+logstash_config: >
+  input {
+    # inputs
+  }
+  filter {
+    # filters
+  }
+  output {
+    # outputs
+  }

@@ -7,4 +7,3 @@
 - name: Copy SSH known hosts
   sudo: no
   copy: src=/var/lib/jenkins/ec2_vm_known_hosts_ssh dest=~/.ssh/known_hosts mode=600
-

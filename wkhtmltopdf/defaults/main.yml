@@ -1,0 +1,6 @@
+---
+
+ubuntu_version_name: 'trusty'
+
+wkhtmltopdf_version: '0.12'
+wkhtmltopdf_version_full: '0.12.2.1'

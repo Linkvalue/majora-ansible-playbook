@@ -1,13 +1,30 @@
 ---
 
-- name: Add the offical rabbitmq apt repository
-  apt_repository: repo='deb http://www.rabbitmq.com/debian/ testing main' state=present
-
-- name: Add the rabbitmq repository key
+- name: Add rabbitmq gpg key
   apt_key: url=http://www.rabbitmq.com/rabbitmq-signing-key-public.asc state=present
 
-- name: Install rabbitmq-server
-  apt: name=rabbitmq-server state=present update_cache=yes
+- name: Add rabbitmq repo
+  apt_repository: repo='deb http://www.rabbitmq.com/debian/ testing main' state=present
 
-- name: Start rabbitmq-server
-  service: name=rabbitmq-server state=started enabled=true
+- name: Install rabbitmq
+  apt: name=rabbitmq-server state=present
+
+- name: Configure rabbitmq
+  template: src=rabbitmq.config.j2 dest=/etc/rabbitmq/rabbitmq.config
+  notify:
+    - Restart rabbitmq
+
+- name: Create rabbitmq users
+  rabbitmq_user: >
+    name={{ item.name }}
+    password={{ item.password|default(item.name) }}
+    vhost={{ item.vhost|default('/') }}
+    configure_priv={{ item.configure_priv|default('.*') }}
+    read_priv={{ item.read_priv|default('.*') }}
+    write_priv={{ item.write_priv|default('.*') }}
+    tags={{ item.tags|default('administrator') }}
+    state=present
+  with_items: rabbitmq.users
+  notify:
+    - Restart rabbitmq
+  when: rabbitmq is defined and rabbitmq.users is defined

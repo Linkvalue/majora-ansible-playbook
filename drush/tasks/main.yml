@@ -1,0 +1,4 @@
+---
+
+- name: Install drush
+  shell: wget -q http://files.drush.org/drush.phar && chmod +x drush.phar && mv drush.phar /usr/local/bin/drush

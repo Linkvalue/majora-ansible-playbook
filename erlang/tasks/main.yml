@@ -1,0 +1,10 @@
+---
+
+- name: Add erlang gpg key
+  apt_key: url=http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc state=present
+
+- name: Add erlang repo
+  apt_repository: repo='deb http://packages.erlang-solutions.com/ubuntu {{ ubuntu_version_name }} contrib' state=present
+
+- name: Install erlang
+  apt: name=erlang state=present

@@ -1,0 +1,13 @@
+---
+
+node_version: '5.x'
+
+npm_packages:
+  - npm@latest
+  - node-gyp
+  - pm2
+  - nodemon
+  - grunt-cli
+  - gulp-cli
+  - bower
+  - casperjs

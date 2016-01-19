@@ -1,0 +1,25 @@
+---
+
+- include: php5.yml
+  when: (php_version == '5.4') or (php_version == '5.5') or (php_version == '5.6')
+
+- include: php7.yml
+  when: php_version == '7.0'
+
+- name: Stop apache server in favour of nginx if it was installed unintentionally
+  service: name=apache2 state=stopped
+  notify:
+    - Restart nginx
+  when: (apache is not defined) and (nginx is defined)
+
+- include: apache.yml
+  when: (apache_mod_php is defined and apache_mod_php) and (apache is defined)
+
+- include: fpm.yml
+  when: fpm is defined and fpm
+
+- include: php5-extensions.yml
+  when: (php_version == '5.4') or (php_version == '5.5') or (php_version == '5.6')
+
+- include: php7-extensions.yml
+  when: php_version == '7.0'

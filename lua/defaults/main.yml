@@ -1,0 +1,8 @@
+---
+
+lua_version: '5.1'
+
+lua_packages:
+  - luajit
+  - luarocks
+  - lua-nginx-redis

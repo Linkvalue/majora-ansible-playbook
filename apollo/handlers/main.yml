@@ -1,0 +1,4 @@
+---
+
+- name: Restart apollo-broker-service
+  service: name=apollo-broker-service state=restarted

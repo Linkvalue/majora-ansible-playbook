@@ -1,0 +1,26 @@
+---
+
+- name: Check if apollo is already installed
+  stat: path=/var/lib/apollobroker
+  register: apollo
+
+- name: Install apollo
+  shell: >
+    wget -qO - http://apache.crihan.fr/dist/activemq/activemq-apollo/{{ apollo_version }}/apache-apollo-{{ apollo_version }}-unix-distro.tar.gz | tar zxvf - && \
+    mv apache-apollo-{{ apollo_version }} ~/apollo-{{ apollo_version }}
+  when: not apollo.stat.exists
+
+- name: Create broker instance
+  shell: >
+    cd /var/lib && \
+    ~/apollo-{{ apollo_version }}/bin/apollo create apollobroker && \
+    ln -s /var/lib/apollobroker/bin/apollo-broker-service /etc/init.d/
+  when: not apollo.stat.exists
+
+- name: Configure broker
+  template: src=apollo.xml.j2 dest=/var/lib/apollobroker/etc/apollo.xml owner=root group=root mode=0644
+  notify:
+    - Restart apollo-broker-service
+
+- name: Start apollo-broker-service
+  service: name=apollo-broker-service state=started

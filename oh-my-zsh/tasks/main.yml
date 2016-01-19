@@ -1,0 +1,18 @@
+---
+
+- name: Install oh-my-zsh
+  shell: >
+    wget -qO - https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | bash - && \
+    cp -R ~/.oh-my-zsh /home/vagrant/
+
+- name: Configure oh-my-zsh for root user
+  template: src=zshrc.j2 dest=~/.zshrc
+
+- name: Configure oh-my-zsh for vagrant user
+  template: src=zshrc.j2 dest=/home/vagrant/.zshrc
+
+- name: Set zsh as default shell for root user
+  user: name=root shell=/bin/zsh
+
+- name: Set zsh as default shell for vagrant user
+  user: name=vagrant shell=/bin/zsh

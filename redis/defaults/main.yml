@@ -1,13 +1,22 @@
 ---
-
 ## Installation options
 redis_version: 2.8.9
 redis_install_dir: /opt/redis
 redis_user: redis
+redis_group: "{{ redis_user }}"
 redis_dir: /var/lib/redis/{{ redis_port }}
+redis_download_url: "http://download.redis.io/releases/redis-{{ redis_version }}.tar.gz"
 redis_tarball: false
 # The open file limit for Redis/Sentinel
 redis_nofile_limit: 16384
+
+## Role options
+# Configure Redis as a service
+# This creates the init scripts for Redis and ensures the process is running
+# Also applies for Redis Sentinel
+redis_as_service: true
+# Add local facts to /etc/ansible/facts.d for Redis
+redis_local_facts: true
 
 ## Networking/connection options
 redis_bind: 0.0.0.0
@@ -18,6 +27,10 @@ redis_tcp_keepalive: 0
 # Max connected clients at a time
 redis_maxclients: 10000
 redis_timeout: 0
+# Socket options
+# Set socket_path to the desired path to the socket. E.g. /var/run/redis/{{ redis_port }}.sock
+redis_socket_path: false
+redis_socket_perm: 755
 
 ## Replication options
 # Set slaveof just as you would in redis.conf. (e.g. "redis01 6379")
@@ -28,15 +41,15 @@ redis_slave_priority: 100
 redis_repl_backlog_size: false
 
 ## Logging
-redis_logfile: '""'
-# Enable syslog. "yes" or "no"
-redis_syslog_enabled: "yes"
-redis_syslog_ident: redis_{{ redis_port }}
-# Syslog facility. Must be USER or LOCAL0-LOCAL7
-redis_syslog_facility: USER
+redis_logfile: '""'                                                             
+# Enable syslog. "yes" or "no"                                                  
+redis_syslog_enabled: "yes"                                                     
+redis_syslog_ident: redis_{{ redis_port }}                                      
+# Syslog facility. Must be USER or LOCAL0-LOCAL7                                
+redis_syslog_facility: USER   
 
 ## General configuration
-redis_daemonize: "yes"
+redis_daemonize: "yes"                                                          
 redis_pidfile: /var/run/redis/{{ redis_port }}.pid
 # Number of databases to allow
 redis_databases: 16
