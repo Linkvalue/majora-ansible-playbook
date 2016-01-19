@@ -1,5 +1,3 @@
 ---
 
-ubuntu_version_name: 'trusty'
-
 postgresql_version: '9.4'

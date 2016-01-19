@@ -3,3 +3,5 @@
 nginx: true
 
 nginx_package: 'nginx'
+
+fpm: true

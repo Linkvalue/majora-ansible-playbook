@@ -1,3 +1,5 @@
 ---
 
-ubuntu_version_name: 'trusty'
+timezone: 'UTC'
+
+hhvm_memory_limit: '2G'

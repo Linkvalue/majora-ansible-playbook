@@ -19,12 +19,12 @@
 
 - name: Download wkhtmltopdf
   get_url:
-    url: 'http://download.gna.org/wkhtmltopdf/{{ wkhtmltopdf_version }}/{{ wkhtmltopdf_version_full }}/wkhtmltox-{{ wkhtmltopdf_version_full }}_linux-{{ ubuntu_version_name }}-amd64.deb'
-    dest: '/opt/wkhtmltopdf/wkhtmltox-{{ wkhtmltopdf_version_full }}_linux-{{ ubuntu_version_name }}-amd64.deb'
+    url: 'http://download.gna.org/wkhtmltopdf/{{ wkhtmltopdf_version }}/{{ wkhtmltopdf_version_full }}/wkhtmltox-{{ wkhtmltopdf_version_full }}_linux-{{ ansible_lsb.codename }}-amd64.deb'
+    dest: '/opt/wkhtmltopdf/wkhtmltox-{{ wkhtmltopdf_version_full }}_linux-{{ ansible_lsb.codename }}-amd64.deb'
     validate_certs: no
 
 - name: Install wkthtmltopdf
-  apt: deb='/opt/wkhtmltopdf/wkhtmltox-{{ wkhtmltopdf_version_full }}_linux-{{ ubuntu_version_name }}-amd64.deb' state=present
+  apt: deb='/opt/wkhtmltopdf/wkhtmltox-{{ wkhtmltopdf_version_full }}_linux-{{ ansible_lsb.codename }}-amd64.deb' state=present
 
 - name: Add wkthtmltopdf symlink
   file:

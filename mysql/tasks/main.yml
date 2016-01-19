@@ -30,7 +30,3 @@
   template: src=my.cnf.j2 dest=/etc/mysql/my.cnf
   notify:
     - Restart mysql
-
-- name: Install php5 mysql extensions
-  apt: name=php5-mysql state=present
-  when: php_version is defined

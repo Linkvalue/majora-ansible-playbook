@@ -1,0 +1,27 @@
+---
+
+- name: Install php5 apache lib
+  apt: name={{ item }} state=present
+  with_items:
+    - libapache2-mod-php5
+
+- name: Configure php5 apache
+  template: src=php.ini.j2 dest=/etc/php5/apache2/php.ini owner=root group=root mode=0644
+
+- name: Configure php5 xdebug apache
+  template: src=xdebug.ini.j2 dest="/etc/php5/apache2/conf.d/20-xdebug.ini" mode=0644
+  notify:
+    - Restart apache2
+  when: ('php5-xdebug' in php5_extensions)
+
+- name: Configure php5 redis apache for ubuntu < 14.04
+  file: src=/etc/php5/mods-available/redis.ini dest=/etc/php5/apache2/conf.d/30-redis.ini state=link
+  notify:
+    - Restart apache2
+  when: ('php5-redis' in php5_extensions) and (ansible_distribution_version|version_compare('14.04', '<'))
+
+- name: Configure php5 stomp apache
+  file: src=/etc/php5/mods-available/stomp.ini dest=/etc/php5/apache2/conf.d/30-stomp.ini state=link
+  notify:
+    - Restart apache2
+  when: ('php5-stomp' in php5_extensions)

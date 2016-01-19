@@ -1,3 +1,5 @@
 ---
 
 apache: true
+
+apache_mod_php: true

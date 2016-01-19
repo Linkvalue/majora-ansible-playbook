@@ -14,7 +14,7 @@
 
 - name: Push virtualhost configuration files
   template:
-    src: "{{ item.template|default('vhost.default.j2') }}"
+    src: "{{ item.template|default('vhost.symfony2.j2') }}"
     dest: "/etc/apache2/sites-enabled/{{ item.dest|default(item.name)}}.conf"
     owner: root
     group: root

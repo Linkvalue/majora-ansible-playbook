@@ -1,5 +1,5 @@
 ---
 
-# Add this line to /etc/hosts VM (could be used to communicate with other VM)
+# Each etc_hosts_lines will be add to /etc/hosts on guest
 etc_hosts_lines:
   - { ip: '127.0.0.1', name: 'localhost' }
