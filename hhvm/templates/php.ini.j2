@@ -5,5 +5,5 @@ hhvm.log.runtime_error_reporting_level = 8191
 hhvm.mysql.typed_results = false
 
 ;php options
-memory_limit = {{ hhvm_memory_limit|default('2G') }}
-date.timezone = {{ hhvm_date_timezone|default('UTC') }}
+memory_limit = {{ hhvm_memory_limit }}
+date.timezone = {{ timezone }}

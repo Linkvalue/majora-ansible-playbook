@@ -5,9 +5,9 @@
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
     composer self-update
 
-- name: Make sure vagrant user as .composer directory
-  file: dest=/home/vagrant/.composer state=directory owner=vagrant group=vagrant
+- name: Make sure main user as .composer directory
+  file: dest='{{ main_user_home_dir }}/.composer' state=directory owner={{ main_user }} group={{ main_group }}
 
-- name: Set github personal token for vagrant user
-  template: src=auth.json.j2 dest=/home/vagrant/.composer/auth.json owner=vagrant group=vagrant
+- name: Set github personal token for main user
+  template: src=auth.json.j2 dest='{{ main_user_home_dir }}/.composer/auth.json' owner={{ main_user }} group={{ main_group }}
   when: composer_github_token != ''

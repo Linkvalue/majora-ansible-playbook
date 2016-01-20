@@ -1,11 +1,11 @@
 ---
 
 - name: Forward ssh folder for root user
-  copy: src="{{ ssh_folder }}/{{ item }}" dest="~/.ssh/{{ item }}" mode=600
+  copy: src='{{ ssh_folder }}/{{ item }}' dest='~/.ssh/{{ item }}' mode=600
   with_items:
     - id_rsa
 
-- name: Forward ssh folder for vagrant user
-  copy: src="{{ ssh_folder }}/{{ item }}" dest="/home/vagrant/.ssh/{{ item }}" owner=vagrant group=vagrant mode=600
+- name: Forward ssh folder for main user
+  copy: src='{{ ssh_folder }}/{{ item }}' dest='{{ main_user_home_dir }}/.ssh/{{ item }}' owner={{ main_user }} group={{ main_user }} mode=600
   with_items:
     - id_rsa

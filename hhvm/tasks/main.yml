@@ -4,7 +4,7 @@
   apt_key: url=http://dl.hhvm.com/conf/hhvm.gpg.key state=present
 
 - name: Add hhvm apt repository
-  apt_repository: repo='deb http://dl.hhvm.com/ubuntu {{ ubuntu_version_name }} main' state=present
+  apt_repository: repo='deb http://dl.hhvm.com/ubuntu {{ ansible_lsb.codename }} main' state=present
 
 - name: Install hhvm
   apt: name=hhvm state=present

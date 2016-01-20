@@ -6,6 +6,12 @@
 - name: Install node.js
   apt: name=nodejs state=present
 
+- name: Update npm and node-gyp
+  npm: name={{ item }} global=yes
+  with_items:
+    - npm@latest
+    - node-gyp
+
 - name: Install npm global packages
   npm: name={{ item }} global=yes
   with_items: npm_packages

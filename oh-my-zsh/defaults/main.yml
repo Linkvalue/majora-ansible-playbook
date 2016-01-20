@@ -1,7 +1,9 @@
 ---
 
-zsh_theme: 'fishy'
-
-zsh_editor: 'vim'
+main_user: 'vagrant'
+main_user_home_dir: '/home/vagrant'
 
 workspace: '/var/www'
+
+zsh_theme: 'robbyrussell'
+zsh_editor: 'vim'

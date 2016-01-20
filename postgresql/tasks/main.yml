@@ -4,7 +4,7 @@
   shell: wget -qO - https://postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 
 - name: Add postgresql repo
-  apt_repository: repo="deb https://apt.postgresql.org/pub/repos/apt/ {{ ubuntu_version_name }}-pgdg main" state=present
+  apt_repository: repo="deb https://apt.postgresql.org/pub/repos/apt/ {{ ansible_lsb.codename }}-pgdg main" state=present
 
 - name: Install postgresql
   apt: name={{ item }} state=present
@@ -42,7 +42,3 @@
     state=present
   with_items: postgresql.users
   when: postgresql is defined and postgresql.users is defined
-
-- name: Install php5 pgsql extensions
-  apt: name=php5-pgsql state=present
-  when: php_version is defined

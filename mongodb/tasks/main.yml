@@ -35,11 +35,3 @@
 
 - name: Start mongodb service with authentication
   service: name=mongod state=restarted
-
-- name: Add chrislea mongo drivers ppa for ubuntu precise
-  apt_repository: repo="ppa:chris-lea/mongodb-drivers" state=present
-  when: (php_version is defined) and (ubuntu_version_name == 'precise')
-
-- name: Install php5 mongo extensions
-  apt: name=php5-mongo state=present
-  when: php_version is defined
