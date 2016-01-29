@@ -4,6 +4,8 @@ php_memory_limit: '2G'
 
 php_version: '5.6'
 
+php_disable_xdebug_cli: false
+
 php5_extensions:
   - php5-common
   - php5-curl
