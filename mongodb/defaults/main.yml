@@ -1,0 +1,5 @@
+---
+
+mongodb: {}
+#  users:
+#    - { name: 'user', password: 'user', database: 'admin' }

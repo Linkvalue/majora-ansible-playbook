@@ -19,7 +19,7 @@
   template: src=mongod-noauth.conf.j2 dest=/etc/mongod.conf
 
 - name: Start mongodb service without authentication
-  service: name=mongod state=restarted
+  service: name=mongod state=started
 
 - name: Create mongodb users
   mongodb_user: >
@@ -27,11 +27,12 @@
     password={{ item.password|default(item.name)}}
     database={{ item.database|default('admin') }}
     state=present
-  with_items: mongodb.users
-  when: mongodb is defined and mongodb.users is defined
+  with_items: mongodb.users|default([])
 
 - name: Configure mongodb with authentication
   template: src=mongod.conf.j2 dest=/etc/mongod.conf
+  when: mongodb.users is defined
 
-- name: Start mongodb service with authentication
+- name: Restart mongodb service with authentication
   service: name=mongod state=restarted
+  when: mongodb.users is defined
