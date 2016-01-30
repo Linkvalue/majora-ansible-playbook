@@ -20,7 +20,8 @@ Take a look at each role's `defaults/main.yml` file to see all overridable varia
 
 | Variable    | Description |
 |:-----------:|-------------|
-| php_version | Supported versions are `'5.4'` (with 'ubuntu/precise64' distrib), `'5.5'`, `'5.6'`, `'7.0'` (currently only supported with `nginx/fpm`). |
+| php_disable_xdebug_cli | If set to `true`, xdebug php extension won't be enabled in PHP CLI (which is a great improvement while using "composer" but still has drawbacks in other fields). <br>Default value is `false`. |
+| php_version | Supported versions are `'5.4'` (with 'ubuntu/precise64' distrib), `'5.5'`, `'5.6'`, `'7.0'` (currently only supported with `nginx/fpm`). <br>Default value is `'5.6'`. |
 
 
 

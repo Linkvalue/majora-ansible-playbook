@@ -22,6 +22,10 @@
   template: src=xdebug.ini.j2 dest="/etc/php5/cli/conf.d/20-xdebug.ini" mode=0644
   when: ('php5-xdebug' in php5_extensions)
 
+- name: Disable php5 cli xdebug (if wanted)
+  file: dest="/etc/php5/cli/conf.d/20-xdebug.ini" state=absent
+  when: (php_disable_xdebug_cli is defined and php_disable_xdebug_cli)
+
 - name: Install php5 redis for ubuntu < 14.04
   shell: >
     test -f /etc/php5/mods-available/redis.ini || \
