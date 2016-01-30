@@ -1,9 +1,7 @@
 ---
 
-postgresql: {}
+mysql: {}
 #  databases:
 #    - { name: 'database' }
 #  users:
 #    - { name: 'user', password: 'user' }
-
-postgresql_version: '9.4'

@@ -30,6 +30,8 @@ alias ...="cd ../../"
 alias ....="cd ../../../"
 alias ......="cd ../../../../"
 alias www="cd {{ workspace }}"
+alias sf='php app/console'
+alias gl="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
 # Configure main EDITOR
 export EDITOR='{{ zsh_editor }}'
