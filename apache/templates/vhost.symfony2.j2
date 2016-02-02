@@ -1,9 +1,9 @@
 <VirtualHost *:{{ item.port|default('80') }}>
     ServerName {{ item.server_name }}
     ServerAlias {{ item.server_alias|default('*.'~item.server_name) }}
-    DocumentRoot "{{ item.docroot|default('/var/www/'~item.name) }}/web"
+    DocumentRoot "{{ item.docroot|default('/var/www/'~item.name~'/web') }}"
 
-    <Directory "{{ item.docroot|default('/var/www/'~item.name) }}/web">
+    <Directory "{{ item.docroot|default('/var/www/'~item.name~'/web') }}">
         AllowOverride All
         Options -Indexes +FollowSymLinks
 

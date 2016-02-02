@@ -3,3 +3,7 @@
 apache: true
 
 apache_mod_php: true
+
+sites: []
+#  - { name: 'acme-sf-project', server_name: 'acme.dev', template: 'vhost.symfony.j2', docroot: '/var/www/acme-sf-project/web' }
+#  - { name: 'Wordpress', server_name: 'wordpress.dev' }

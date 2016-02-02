@@ -5,3 +5,7 @@ nginx: true
 nginx_package: 'nginx'
 
 fpm: true
+
+sites: []
+#  - { name: 'NodeJS', server_name: 'nodejs.dev', template: 'vhost.proxy-node.j2' }
+#  - { name: 'acme-sf-project', server_name: 'acme.dev', template: 'vhost.symfony.j2', docroot: '/var/www/acme-sf-project/web' }
