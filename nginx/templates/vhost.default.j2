@@ -11,32 +11,21 @@ server {
     access_log /var/log/nginx/{{ item.name }}.access.log;
     error_log /var/log/nginx/{{ item.name }}.error.log;
 
-    #site root is redirected to the app boot script
-    location = / {
-        try_files @site @site;
-    }
-
-    #all other locations try other files first and go to our front controller if none of them exists
-    location / {
-        try_files $uri $uri/ @site;
-    }
-
-    #return 404 for all php files as we do have a front controller
-    location ~ \.php$ {
-        return 404;
-    }
-
-    location @site {
+    # pass the PHP scripts to FastCGI server from upstream phpfcgi
+    location ~ [^/]\.php(/|$) {
         fastcgi_pass 127.0.0.1:9000;
-        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+        if (!-f $document_root$fastcgi_script_name) {
+            return 404;
+        }
+
         include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME $document_root/index.php;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
         fastcgi_param DOCUMENT_ROOT $realpath_root;
         fastcgi_param HTTPS off;
         fastcgi_buffer_size 128k;
         fastcgi_buffers 4 256k;
         fastcgi_busy_buffers_size 256k;
         fastcgi_read_timeout 300s;
-        fastcgi_param APP_ENV dev;
     }
 }

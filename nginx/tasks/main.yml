@@ -7,8 +7,7 @@
   apt: name={{ nginx_package }} state=present
 
 - name: Push virtualhost configuration files
-  template: src={{ item.template|default('vhost.symfony2.j2') }} dest=/etc/nginx/sites-enabled/{{ item.dest|default(item.name)}}
+  template: src={{ item.template|default('vhost.default.j2') }} dest=/etc/nginx/sites-enabled/{{ item.name }}.conf
   with_items: sites
-  when: sites is defined
   notify:
     - Restart nginx

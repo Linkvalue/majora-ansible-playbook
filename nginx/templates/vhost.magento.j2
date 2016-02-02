@@ -1,5 +1,5 @@
 server {
-    listen {{ item.port|default('80') }};
+    listen *:{{ item.port|default('80') }};
     root {{ item.docroot|default('/var/www/'~item.name) }};
     server_name {{ item.server_name }} *.{{ item.server_name }};
 
@@ -7,8 +7,8 @@ server {
     proxy_buffers 4 256k;
     proxy_busy_buffers_size 256k;
 
-    access_log  /var/log/nginx/{{ item.name }}.access.log;
-    error_log  /var/log/nginx/{{ item.name }}.error.log;
+    access_log /var/log/nginx/{{ item.name }}.access.log;
+    error_log /var/log/nginx/{{ item.name }}.error.log;
 
     location / {
         proxy_read_timeout 300;
