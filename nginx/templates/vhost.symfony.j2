@@ -23,7 +23,7 @@ server {
     }
 
     # pass the PHP scripts to FastCGI server from upstream phpfcgi
-    location ~ ^/({{ item.app_name|default('app') }}|{{ item.app_name|default('app') }}_dev|config|apc-.*)\.php(/|$) {
+    location ~ ^/({{ item.app_name|default('app') }}|{{ item.app_name|default('app') }}_.*|config|apc-.*)\.php(/|$) {
         fastcgi_pass 127.0.0.1:9000;
         fastcgi_split_path_info ^(.+\.php)(/.*)$;
         include fastcgi_params;
