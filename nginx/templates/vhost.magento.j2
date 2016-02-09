@@ -1,7 +1,7 @@
 server {
     listen *:{{ item.port|default('80') }};
     root {{ item.docroot|default('/var/www/'~item.name) }};
-    server_name {{ item.server_name }} *.{{ item.server_name }};
+    server_name {{ item.server_name }} {{ item.server_alias|default('*.'~item.server_name) }};
 
     proxy_buffer_size 128k;
     proxy_buffers 4 256k;
