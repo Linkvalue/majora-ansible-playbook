@@ -4,7 +4,7 @@ upstream {{ item.upstream_name|default('nodejs') }} {
 
 server {
     listen *:{{ item.port|default('80') }};
-    server_name {{ item.server_name }};
+    server_name {{ item.server_name }} {{ item.server_alias|default('*.'~item.server_name) }};
 
     access_log /var/log/nginx/{{ item.name }}.access.log;
     error_log /var/log/nginx/{{ item.name }}.error.log;

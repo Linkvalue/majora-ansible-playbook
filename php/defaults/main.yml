@@ -4,7 +4,7 @@ php_memory_limit: '2G'
 
 php_version: '5.6'
 
-php_disable_xdebug_cli: false
+php_disable_xdebug_cli: true
 
 php5_extensions:
   - php5-common

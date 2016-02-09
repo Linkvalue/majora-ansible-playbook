@@ -20,7 +20,7 @@ Take a look at each role's `defaults/main.yml` file to see all overridable varia
 
 | Variable    | Roles       | Description |
 |:-----------:|:-----------:|-------------|
-| php_disable_xdebug_cli | php | If set to `true`, xdebug php extension won't be enabled in PHP CLI (which is a great improvement while using "composer" but still has drawbacks in other fields). <br>Default value is `false`. |
+| php_disable_xdebug_cli | php | If set to `false`, xdebug php extension will be enabled in PHP CLI (which reduces "composer" speed considerably). <br>Default value is `true`. |
 | php_version | php | Supported versions are `'5.4'` (with 'ubuntu/precise64' distrib), `'5.5'`, `'5.6'`, `'7.0'` (currently only supported with `nginx/fpm`). <br>Default value is `'5.6'`. |
 | sites | apache/nginx | **ARRAY** <br>[See "Nginx/Apache section"](#nginxapache-server-configuration). <br>Default value is `[]`. |
 | zsh_additional_commands | oh-my-zsh | **MULTI-LINES** <br>Allow to set additional commands which will be executed each time you open a ZSH terminal. <br>Default value is `export IS_VM=true`. |
@@ -36,8 +36,8 @@ You are able to provision `nginx` or `apache` server configuration using the `si
 ```yml
 # nginx/apache configuration for 2 symfony projects
 sites:
-  - { name: 'acme-sf-project', server_name: 'acme.dev', template: 'vhost.symfony.j2', docroot: '/var/www/acme-sf-project/web' }
-  - { name: 'emca-sf-project', server_name: 'emca.dev', template: 'vhost.symfony.j2' } # docroot will point to "/var/www/{{name}}/web" by default for symfony template
+  - { name: 'acme-sf-project', server_name: 'acme.dev', template: 'vhost.symfony.j2', docroot: '/var/www/acme-sf-project/web' } # server_alias is "*.{{server_name}}" by default
+  - { name: 'emca-sf-project', server_name: 'emca.dev', template: 'vhost.symfony.j2', server_alias: '*.local.custom.emca.dev' } # docroot will point to "/var/www/{{name}}/web" by default for symfony template
 ```
 
 ```yml
