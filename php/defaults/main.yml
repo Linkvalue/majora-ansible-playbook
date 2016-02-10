@@ -23,6 +23,7 @@ php5_extensions:
   - php5-mongo
   - php5-sqlite
   - php5-redis
+  - php5-memcache
   - php5-stomp
 
 php7_extensions:
