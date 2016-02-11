@@ -46,9 +46,12 @@
   file: src=/etc/php5/mods-available/stomp.ini dest=/etc/php5/cli/conf.d/30-stomp.ini state=link
   when: ('php5-stomp' in php5_extensions)
 
-- name: Install php5 amqp-1.4.0 (compatible with librabbitmq1-0.4.1)
+- name: Install php5 librabbitmq-dev for php5-amqp extension
+  apt: name=librabbitmq-dev state=present
+  when: ('php5-amqp' in php5_extensions)
+
+- name: Install php5 amqp-1.4.0
   shell: >
-    apt-get install librabbitmq-dev && \
     test -f /etc/php5/mods-available/amqp.ini || \
     (yes "no" | pecl install amqp-1.4.0 && touch /etc/php5/mods-available/amqp.ini && echo "extension=amqp.so" > /etc/php5/mods-available/amqp.ini)
   when: ('php5-amqp' in php5_extensions)
