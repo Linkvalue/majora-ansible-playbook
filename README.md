@@ -47,7 +47,17 @@ sites:
   - { name: 'Wordpress', server_name: 'wordpress.dev', template: 'vhost.wordpress.j2' } # docroot will point to "/var/www/{{name}}" by default for wordpress template
 ```
 
-Take a look into `nginx` and `apache` directories to see exactly how you can use our different configuration templates.
+Take a look into `nginx` or `apache` directories to see exactly how you can use our different configuration templates.
+
+| Templates | Servers | Description |
+|:---------:|:-------:|-------------|
+| vhost.default.j2 | apache/nginx |  |
+| vhost.magento.j2 | nginx |  |
+| vhost.proxy-node.j2 | nginx |  |
+| vhost.silex.j2 | nginx |  |
+| vhost.symfony.j2 | apache/nginx |  |
+| vhost.wordpress.j2 | nginx |  |
+| vhost.zend.j2 | nginx |  |
 
 
 
