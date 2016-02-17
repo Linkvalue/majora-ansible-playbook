@@ -10,12 +10,12 @@
 
 - name: Install php5 extensions for ubuntu < 14.04
   apt: name={{ item }} state=present
-  with_items: php5_extensions|difference(['php5-redis', 'php5-stomp'])
+  with_items: php5_extensions|difference(['php5-redis', 'php5-stomp', 'php5-amqp'])
   when: ansible_distribution_version|version_compare('14.04', '<')
 
 - name: Install php5 extensions for ubuntu >= 14.04
   apt: name={{ item }} state=present
-  with_items: php5_extensions|difference(['php5-stomp'])
+  with_items: php5_extensions|difference(['php5-stomp', 'php5-amqp'])
   when: ansible_distribution_version|version_compare('14.04', '>=')
 
 - name: Configure php5 cli xdebug
@@ -45,3 +45,17 @@
 - name: Configure php5 stomp cli
   file: src=/etc/php5/mods-available/stomp.ini dest=/etc/php5/cli/conf.d/30-stomp.ini state=link
   when: ('php5-stomp' in php5_extensions)
+
+- name: Install php5 librabbitmq-dev for php5-amqp extension
+  apt: name=librabbitmq-dev state=present
+  when: ('php5-amqp' in php5_extensions)
+
+- name: Install php5 amqp-1.4.0
+  shell: >
+    test -f /etc/php5/mods-available/amqp.ini || \
+    (yes "no" | pecl install amqp-1.4.0 && touch /etc/php5/mods-available/amqp.ini && echo "extension=amqp.so" > /etc/php5/mods-available/amqp.ini)
+  when: ('php5-amqp' in php5_extensions)
+
+- name: Configure php5 amqp cli
+  file: src=/etc/php5/mods-available/amqp.ini dest=/etc/php5/cli/conf.d/30-amqp.ini state=link
+  when: ('php5-amqp' in php5_extensions)
