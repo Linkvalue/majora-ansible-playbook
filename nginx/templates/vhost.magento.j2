@@ -48,7 +48,7 @@ server {
         if (!-e $request_filename) { rewrite / /index.php last; } ## Catch 404s that try_files miss
 
         expires        off; ## Do not cache dynamic content
-        fastcgi_pass   127.0.0.1:9000;
+        fastcgi_pass {{ item.fastcgi_pass|default('unix:/run/php/php' ~ php_versions|first ~ '-fpm.sock') }};
         fastcgi_param  HTTPS off;
         fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
         fastcgi_param  MAGE_RUN_CODE {{ item.mage_run_code|default('default') }}; ## Store code is defined in administration > Configuration > Manage Stores

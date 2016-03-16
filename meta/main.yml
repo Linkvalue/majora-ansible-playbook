@@ -2,8 +2,8 @@
 
 galaxy_info:
   author: Majora
-  description: Compilation of ansible playbooks. Optimized for Ubuntu distributions.
-  company: Majora
+  description: Compilation of ansible playbooks for Ubuntu distributions.
+  company: LinkValue
   license: MIT
 
   min_ansible_version: 1.9
@@ -11,7 +11,6 @@ galaxy_info:
   platforms:
     - name: Ubuntu
       versions:
-        - precise
         - trusty
 
   galaxy_tags:

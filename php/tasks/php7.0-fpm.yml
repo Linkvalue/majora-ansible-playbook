@@ -1,21 +1,23 @@
 ---
 
-- name: Install php7 fpm lib
+- name: Install php7.0 fpm lib
   apt: name={{ item }} state=present
   with_items:
     - php7.0-fpm
 
-- name: Configure php7 fpm
+- name: Configure php7.0 fpm
   template: src=php.ini.j2 dest="/etc/php/7.0/fpm/php.ini" mode=0644
 
-- name: Configure php7 fpm pools
+- name: Configure php7.0 fpm pools
   template: src=php-fpm.pool.conf.j2 dest="/etc/php/7.0/fpm/pool.d/{{ item.name }}.conf" mode=0644
   with_items: fpm_pools
+  vars:
+    fpm_listen: '/run/php/php7.0-fpm.sock'
   notify:
-    - Restart php7-fpm
+    - Restart php7.0-fpm
 
-- name: Configure php xdebug fpm
+- name: Configure php7.0 xdebug fpm
   template: src=xdebug.ini.j2 dest="/etc/php/7.0/fpm/conf.d/20-xdebug.ini" mode=0644
   notify:
-    - Restart php7-fpm
-  when: ('php-xdebug' in php7_extensions)
+    - Restart php7.0-fpm
+  when: ('php-xdebug' in php70_extensions)

@@ -1,26 +1,19 @@
 ---
 
 - name: Install apache2
-  apt: name={{ item }} state=present
-  with_items:
-    - apache2
+  apt: name=apache2 state=present
 
 - name: Enable apache2 modules
-  apache2_module: name={{ item }} state=present
-  with_items:
-    - expires
-    - ssl
-    - rewrite
+  apache2_module: name="{{ item }}" state=present
+  with_items: apache_modules
 
 - name: Push virtualhost configuration files
-  template:
-    src: "{{ item.template|default('vhost.default.j2') }}"
-    dest: "/etc/apache2/sites-enabled/{{ item.name }}.conf"
+  template: src="{{ item.template }}" dest="/etc/apache2/sites-enabled/{{ item.name }}.conf"
   with_items: sites
+  notify:
+    - Restart apache2
 
 - name: Remove default vhost in sites-enabled
-  file:
-    path: "/etc/apache2/sites-enabled/000-default.conf"
-    state: absent
+  file: path=/etc/apache2/sites-enabled/000-default.conf state=absent
   notify:
     - Restart apache2

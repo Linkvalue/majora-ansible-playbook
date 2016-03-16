@@ -7,7 +7,12 @@
   apt: name={{ nginx_package }} state=present
 
 - name: Push virtualhost configuration files
-  template: src={{ item.template|default('vhost.default.j2') }} dest=/etc/nginx/sites-enabled/{{ item.name }}.conf
+  template: src="{{ item.template }}" dest="/etc/nginx/sites-enabled/{{ item.name }}.conf"
   with_items: sites
+  notify:
+    - Restart nginx
+
+- name: Remove default vhost in sites-enabled
+  file: path=/etc/nginx/sites-enabled/default state=absent
   notify:
     - Restart nginx

@@ -1,8 +1,11 @@
 ---
 
 apache: true
-
 apache_mod_php: true
+apache_modules:
+  - expires
+  - ssl
+  - rewrite
 
 sites: []
 #  - { name: 'acme-sf-project', server_name: 'acme.dev', template: 'vhost.symfony.j2', docroot: '/var/www/acme-sf-project/web' }
