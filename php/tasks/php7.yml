@@ -1,13 +1,14 @@
 ---
 
 - name: Add ondrej php7 ppa
-  apt_repository: repo="ppa:ondrej/php-7.0" state=present
+  apt_repository: repo="ppa:ondrej/php" state=present
 
 - name: Install php7
   apt: name={{ item }} state=present
   with_items:
     - php7.0
     - php7.0-cli
+    - php7.0-dev
 
 - name: Configure php7 cli
   template: src=php.ini.j2 dest="/etc/php/7.0/cli/php.ini" mode=0644
