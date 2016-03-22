@@ -365,6 +365,9 @@ zend.enable_gc = On
 ; http://php.net/expose-php
 expose_php = On
 
+; Fix HTTP_RAW_POST_DATA deprecation warnings (see https://github.com/piwik/piwik/issues/6465 for details)
+always_populate_raw_post_data=-1
+
 ;;;;;;;;;;;;;;;;;;;
 ; Resource Limits ;
 ;;;;;;;;;;;;;;;;;;;
@@ -1963,6 +1966,3 @@ opcache.enable_cli=1
 ; Local Variables:
 ; tab-width: 4
 ; End:
-
-; Fix HTTP_RAW_POST_DATA deprecation warnings (see https://github.com/piwik/piwik/issues/6465 for details)
-always_populate_raw_post_data=-1
