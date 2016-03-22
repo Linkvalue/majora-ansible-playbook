@@ -31,3 +31,9 @@
   notify:
     - Restart php5-fpm
   when: ('php5-stomp' in php5_extensions)
+
+- name: Configure php5 aqmp fpm
+  file: src=/etc/php5/mods-available/amqp.ini dest=/etc/php5/fpm/conf.d/30-amqp.ini state=link
+  notify:
+    - Restart php5-fpm
+  when: ('php5-amqp' in php5_extensions)
