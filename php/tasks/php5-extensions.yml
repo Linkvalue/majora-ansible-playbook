@@ -1,7 +1,7 @@
 ---
 
 - name: Register php extensions directory
-  shell: php -i 2>/dev/null | grep extension_dir | awk -F" => " '{ print $2; }'
+  shell: php -i 2>/dev/null | grep "^extension_dir" | awk -F" => " '{ print $2; }'
   register: php_extension_dir
 
 - name: Add ppa mongodb-drivers for ubuntu < 14.04
