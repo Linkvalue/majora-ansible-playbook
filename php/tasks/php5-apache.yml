@@ -25,3 +25,9 @@
   notify:
     - Restart apache2
   when: ('php5-stomp' in php5_extensions)
+
+- name: Configure php5 amqp apache
+  file: src=/etc/php5/mods-available/amqp.ini dest=/etc/php5/apache2/conf.d/30-amqp.ini state=link
+  notify:
+    - Restart apache2
+  when: ('php5-amqp' in php5_extensions)

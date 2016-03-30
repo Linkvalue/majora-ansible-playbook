@@ -11,3 +11,11 @@
 - name: Configure php7 fpm pools
   template: src=php-fpm.pool.conf.j2 dest="/etc/php/7.0/fpm/pool.d/{{ item.name }}.conf" mode=0644
   with_items: fpm_pools
+  notify:
+    - Restart php7-fpm
+
+- name: Configure php xdebug fpm
+  template: src=xdebug.ini.j2 dest="/etc/php/7.0/fpm/conf.d/20-xdebug.ini" mode=0644
+  notify:
+    - Restart php7-fpm
+  when: ('php-xdebug' in php7_extensions)

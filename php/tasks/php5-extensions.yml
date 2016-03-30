@@ -1,9 +1,5 @@
 ---
 
-- name: Register php extensions directory
-  shell: php -i 2>/dev/null | grep "^extension_dir" | awk -F" => " '{ print $2; }'
-  register: php_extension_dir
-
 - name: Add ppa mongodb-drivers for ubuntu < 14.04
   apt_repository: repo="ppa:chris-lea/mongodb-drivers" state=present
   when: ('php5-mongo' in php5_extensions) and (ansible_distribution_version|version_compare('14.04', '<'))
