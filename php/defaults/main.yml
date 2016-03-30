@@ -14,17 +14,17 @@ php5_extensions:
   - php5-imap
   - php5-intl
   - php5-json
-  - php5-xsl
   - php5-ldap
   - php5-mcrypt
-  - php5-xdebug
+  - php5-memcache
+  - php5-mongo
   - php5-mysql
   - php5-pgsql
-  - php5-mongo
-  - php5-sqlite
   - php5-redis
-  - php5-memcache
+  - php5-sqlite
   - php5-stomp
+  - php5-xdebug
+  - php5-xsl
 
 php7_extensions:
   - php7.0-common
@@ -43,6 +43,7 @@ php7_extensions:
   - php7.0-xsl
   - php7.0-zip
   - php-redis
+  - php-xdebug
 
 fpm_pools:
     - { name: 'www', user: 'vagrant', group: 'vagrant', listen: '127.0.0.1:9000' }

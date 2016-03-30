@@ -20,7 +20,8 @@ Take a look at each role's `defaults/main.yml` file to see all overridable varia
 
 | Variable    | Roles       | Description |
 |:-----------:|:-----------:|-------------|
-| php_disable_xdebug_cli | php | If set to `false`, xdebug php extension will be enabled in PHP CLI (which reduces "composer" speed considerably). <br>Default value is `true`. |
+| php_disable_xdebug_cli | php | If set to `false`, xdebug php extension will be enabled in PHP CLI (which considerably reduces "composer" speed). <br>Default value is `true`. |
+| php_memory_limit | php | Defines [`memory_limit` setting in `php.ini`](http://php.net/manual/en/ini.core.php#ini.memory-limit). <br>Default value is `'2G'`. |
 | php_version | php | Supported versions are `'5.4'` (with 'ubuntu/precise64' distrib), `'5.5'`, `'5.6'`, `'7.0'` (currently only supported with `nginx/fpm`). <br>Default value is `'5.6'`. |
 | sites | apache/nginx | **ARRAY** <br>[See "Nginx/Apache section"](#nginxapache-server-configuration). <br>Default value is `[]`. |
 | zsh_additional_commands | oh-my-zsh | **MULTI-LINES** <br>Allow to set additional commands which will be executed each time you open a ZSH terminal. <br>Default value is `export IS_VM=true`. |
