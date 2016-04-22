@@ -1,19 +1,24 @@
 ---
 
 common_packages:
+    - nano
+    - vim
+    - zsh
+    - acl
+    - curl
+    - wget
+    - git
+    - unzip
+    - tar
+    - ntp
+
+common_packages_apt:
   - language-pack-fr
   - build-essential
   - software-properties-common
   - python-software-properties
-  - nano
-  - vim
-  - zsh
-  - acl
-  - curl
-  - wget
-  - git
-  - unzip
-  - tar
-  - ntp
+
+common_packages_yum:
+  - "@Development Tools"
 
 timezone: 'UTC'

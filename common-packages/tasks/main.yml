@@ -1,7 +1,8 @@
 ---
 
-- name: Update apt-get repositories
+- name: Update distrib repositories
   apt: upgrade=yes update_cache=yes
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
 - name: Set timezone config file
   template:
@@ -11,6 +12,16 @@
 - name: Set localtime config file
   command: cp /usr/share/zoneinfo/{{ timezone }} /etc/localtime
 
-- name: Install common packages
-  apt: name={{ item }} state=present
-  with_items: common_packages
+- name: Install common packages all distrib
+  package: name="{{ item }}" state=present
+  with_items: '{{ common_packages }}'
+
+- name: Install common packages with apt
+  apt: name="{{ item }}" state=present
+  with_items: '{{ common_packages_apt }}'
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: Install common packages with yum
+  yum: name="{{ item }}" state=present
+  with_items: '{{ common_packages_yum }}'
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
