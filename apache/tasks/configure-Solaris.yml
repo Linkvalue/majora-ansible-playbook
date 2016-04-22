@@ -1,0 +1,57 @@
+---
+- name: Configure Apache.
+  lineinfile:
+    dest: "{{ apache_server_root }}/{{ apache_daemon }}.conf"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  with_items: "{{ apache_ports_configuration_items }}"
+  notify: restart apache
+
+- name: Check whether certificates defined in vhosts exist.
+  stat: path={{ item.certificate_file }}
+  register: apache_ssl_certificates
+  with_items: "{{ apache_vhosts_ssl }}"
+
+- name: Ensure sites-available is created
+  file:
+    path: /etc/httpd/sites-available
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Ensure sites-enabled is created
+  file:
+    path: /etc/httpd/sites-enabled
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Add sites-enabled folder to httpd.conf
+  lineinfile:
+    dest: /etc/httpd/conf/httpd.conf
+    regexp: "^Include conf.d/*.conf"
+    insertafter: "^Include conf.d/*.conf\n"
+    line: "Include sites-enabled/*.conf"
+  notify: restart apache
+
+- name: Add apache vhosts configuration.
+  template:
+    src: "{{ item.template|default('vhost.default.j2') }}"
+    dest: "{{ apache_conf_path }}/sites-available/{{ item.name }}"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart apache
+  when: apache_create_vhosts
+  with_items: "{{ sites }}"
+
+- name: Add vhost symlink in sites-enabled.
+  file:
+    src: "{{ apache_conf_path }}/sites-available/{{ item.name }}"
+    dest: "{{ apache_conf_path }}/sites-enabled/{{ item.name }}"
+    state: link
+  notify: restart apache
+  with_items: "{{ sites }}"

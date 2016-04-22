@@ -1,9 +1,33 @@
 ---
+apache_enablerepo: ""
+
+apache_listen_ip: "*"
+apache_listen_port: 80
+apache_listen_port_ssl: 443
 
 apache: true
 
+apache_create_vhosts: true
 apache_mod_php: true
+
+apache_mods_enabled:
+  - expires
+  - ssl
+  - rewrite
+
+apache_mods_disabled: []
 
 sites: []
 #  - { name: 'acme-sf-project', server_name: 'acme.dev', template: 'vhost.symfony.j2', docroot: '/var/www/acme-sf-project/web' }
 #  - { name: 'Wordpress', server_name: 'wordpress.dev' }
+
+apache_state: started
+
+apache_vhosts_ssl: []
+  # Additional properties: 'serveradmin, extra_parameters'.
+  # - servername: "local.dev",
+  #   documentroot: "/var/www/html",
+  #   certificate_file: "/path/to/certificate.crt",
+  #   certificate_key_file: "/path/to/certificate.key",
+  #   # Optional.
+  #   certificate_chain_file: "/path/to/certificate_chain.crt"
