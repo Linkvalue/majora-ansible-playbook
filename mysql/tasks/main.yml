@@ -16,12 +16,6 @@
 - include: setup-Debian.yml
   when: ansible_os_family == 'Debian'
 
-- name: Install mysql
-  package:
-    name: "{{ item }}"
-    state: present
-  with_items: "{{ mysql_packages }}"
-
 - name: Ensure mysql /conf.d is created
   file:
     path: /etc/mysql/conf.d/
@@ -34,6 +28,12 @@
   template: src={{ mysql_template }} dest={{ mysql_conf_path }}/my.cnf
   notify:
     - Restart mysql
+
+- name: Install mysql
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ mysql_packages }}"
 
 - name: Start mysql service
   service: name={{ mysql_service }} state=started
