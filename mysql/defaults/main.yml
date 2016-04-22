@@ -1,5 +1,9 @@
 ---
 
+mysql_repo: ""
+
+mysql_version: "5.7"
+
 mysql: {}
 #  databases:
 #    - { name: 'database' }

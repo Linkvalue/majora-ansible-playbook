@@ -1,0 +1,5 @@
+---
+- name: Install repo for mysql
+  yum: 
+    name: http://repo.mysql.com/mysql{{ mysql_version|replace('.', '')}}-community-release-el{{ ansible_distribution_version|replace('.', '-')}}.noarch.rpm
+    state: present

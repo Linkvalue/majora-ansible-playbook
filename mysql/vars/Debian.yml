@@ -1,0 +1,13 @@
+---
+mysql_service: mysqld
+mysql_daemon: mysqld
+mysql_daemon_path: /usr/sbin/
+mysql_server_root: /etc/mysql
+mysql_conf_path: /etc/mysql
+mysql_template: debian.my.cnf.j2
+
+__mysql_packages:
+  - mysql-server
+  - mysql
+  - mysql-devel
+  - MySQL-python

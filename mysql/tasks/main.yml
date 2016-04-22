@@ -1,30 +1,52 @@
 ---
+# Include variables and define needed variables.
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Define mysql_packages.
+  set_fact:
+    mysql_packages: "{{ __mysql_packages | list }}"
+  when: mysql_packages is not defined
+
+# Setup/install tasks.
+- include: setup-RedHat.yml
+  when: ansible_os_family == 'RedHat'
+
+# Setup/install tasks.
+- include: setup-Debian.yml
+  when: ansible_os_family == 'Debian'
 
 - name: Install mysql
-  apt: name={{ item }} state=present
-  with_items:
-    - mysql-server
-    - mysql-client
-    - libmysqlclient-dev
-    - python-mysqldb
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ mysql_packages }}"
+
+- name: Ensure mysql /conf.d is created
+  file:
+    path: /etc/mysql/conf.d/
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Configure mysql server
+  template: src={{ mysql_template }} dest={{ mysql_conf_path }}/my.cnf
+  notify:
+    - Restart mysql
 
 - name: Start mysql service
-  service: name=mysql state=started
+  service: name={{ mysql_service }} state=started
 
 - name: Create mysql databases
   mysql_db: name={{ item.name }} state=present
   with_items: mysql.databases|default([])
 
 - name: Create mysql users
-  mysql_user: >
-    name={{ item.name }}
-    password={{ item.password|default(item.name)}}
-    host={{ item.host|default('%')}}
-    priv={{ item.priv|default('*.*:ALL') }}
-    state=present
+  mysql_user:
+    name: "{{ item.name }}"
+    password: "{{ item.password|default(item.name)}}"
+    host: "{{ item.host|default('%')}}"
+    priv: "{{ item.priv|default('*.*:ALL') }}"
+    state: present
   with_items: mysql.users|default([])
-
-- name: Configure mysql server
-  template: src=my.cnf.j2 dest=/etc/mysql/my.cnf
-  notify:
-    - Restart mysql

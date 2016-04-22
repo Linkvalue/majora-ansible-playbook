@@ -1,0 +1,11 @@
+---
+mysql_service: mysqld
+mysql_daemon: mysqld
+mysql_daemon_path: /usr/sbin/
+mysql_server_root: /etc
+mysql_conf_path: /etc
+mysql_template: centos.my.cnf.j2
+
+__mysql_packages:
+  - mysql-community-server
+  - mysql-community-libs
