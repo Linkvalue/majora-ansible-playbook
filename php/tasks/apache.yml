@@ -1,4 +1,4 @@
 ---
 
 - include: php5-apache.yml
-  when: (php_version == '5.4') or (php_version == '5.5') or (php_version == '5.6')
+  when: ('{{php_version}}' == '5.4') or ('{{php_version}}' == '5.5') or ('{{php_version}}' == '5.6')

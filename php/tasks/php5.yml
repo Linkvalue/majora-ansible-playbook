@@ -1,6 +1,6 @@
 ---
 
-- name: Add ondrej php5.4 ppa
+- name: Add ondrej php{{ php_version }} ppa
   apt_repository: repo="ppa:ondrej/php5-oldstable" state=present
   when: php_version == '5.4'
 
