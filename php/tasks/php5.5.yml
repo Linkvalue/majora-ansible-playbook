@@ -1,0 +1,12 @@
+---
+
+- name: Install php5.5
+  apt: name={{ item }} state=present
+  with_items:
+    - php5.5
+    - php5.5-cli
+    - php5.5-dev
+    - php-pear
+
+- name: Configure php5.5 cli
+  template: src=php.ini.j2 dest="/etc/php/5.5/cli/php.ini" mode=0644

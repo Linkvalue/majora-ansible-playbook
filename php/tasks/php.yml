@@ -1,0 +1,31 @@
+---
+
+- name: Add ondrej php ppa
+  apt_repository: repo="ppa:ondrej/php" state=present
+
+- name: Include php5.5.yml
+  include: php5.5.yml
+  when: ('5.5' in php_versions)
+
+- name: Include php5.6.yml
+  include: php5.6.yml
+  when: ('5.6' in php_versions)
+
+- name: Include php7.0.yml
+  include: php7.0.yml
+  when: ('7.0' in php_versions)
+
+- name: Include php5.5-extensions.yml
+  include: php5.5-extensions.yml
+  when: ('5.5' in php_versions)
+
+- name: Include php5.6-extensions.yml
+  include: php5.6-extensions.yml
+  when: ('5.6' in php_versions)
+
+- name: Include php7.0-extensions.yml
+  include: php7.0-extensions.yml
+  when: ('7.0' in php_versions)
+
+- name: Bind php command to first version from php_versions
+  file: src="/usr/bin/php{{ php_versions|first }}" dest=/usr/bin/php state=link force=yes

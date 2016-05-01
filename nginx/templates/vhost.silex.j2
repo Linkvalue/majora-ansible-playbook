@@ -27,7 +27,7 @@ server {
     }
 
     location @site {
-        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_pass {{ item.fastcgi_pass|default('unix:/run/php/php' ~ php_versions|first ~ '-fpm.sock') }};
         fastcgi_split_path_info ^(.+\.php)(/.*)$;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $document_root/index.php;

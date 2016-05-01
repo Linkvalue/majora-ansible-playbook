@@ -1,0 +1,23 @@
+---
+
+- name: Install php5.5 fpm lib
+  apt: name={{ item }} state=present
+  with_items:
+    - php5.5-fpm
+
+- name: Configure php5.5 fpm
+  template: src=php.ini.j2 dest="/etc/php/5.5/fpm/php.ini" mode=0644
+
+- name: Configure php5.5 fpm pools
+  template: src=php-fpm.pool.conf.j2 dest="/etc/php/5.5/fpm/pool.d/{{ item.name }}.conf" mode=0644
+  with_items: fpm_pools
+  vars:
+    fpm_listen: '/run/php/php5.5-fpm.sock'
+  notify:
+    - Restart php5.5-fpm
+
+- name: Configure php5.5 xdebug fpm
+  template: src=xdebug.ini.j2 dest="/etc/php/5.5/fpm/conf.d/20-xdebug.ini" mode=0644
+  notify:
+    - Restart php5.5-fpm
+  when: ('php-xdebug' in php55_extensions)

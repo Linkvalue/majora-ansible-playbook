@@ -1,4 +1,18 @@
 ---
 
-- include: php5-apache.yml
-  when: (php_version == '5.4') or (php_version == '5.5') or (php_version == '5.6')
+- name: Include php5.5-apache.yml
+  include: php5.5-apache.yml
+  when: ('5.5' in php_versions)
+
+- name: Include php5.6-apache.yml
+  include: php5.6-apache.yml
+  when: ('5.6' in php_versions)
+
+- name: Include php7.0-apache.yml
+  include: php7.0-apache.yml
+  when: ('7.0' in php_versions)
+
+- name: Run apache using the first version from php_versions
+  shell: "a2enmod php{{ php_versions|first }}"
+  notify:
+    - Restart apache2

@@ -1,0 +1,18 @@
+---
+
+- name: Install php5.5 apache lib
+  apt: name={{ item }} state=present
+  with_items:
+    - libapache2-mod-php5.5
+
+- name: Configure php5.5 apache
+  template: src=php.ini.j2 dest=/etc/php/5.5/apache2/php.ini owner=root group=root mode=0644
+
+- name: Configure php5.5 xdebug apache
+  template: src=xdebug.ini.j2 dest="/etc/php/5.5/apache2/conf.d/20-xdebug.ini" mode=0644
+  notify:
+    - Restart apache2
+  when: ('php-xdebug' in php55_extensions)
+
+- name: Disable apache mod-php5.5
+  shell: a2dismod php5.5

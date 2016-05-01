@@ -1,30 +1,12 @@
 ---
 
-- include: php5.yml
-  when: (php_version == '5.4') or (php_version == '5.5') or (php_version == '5.6')
+- name: Include php.yml
+  include: php.yml
 
-- include: php7.yml
-  when: php_version == '7.0'
-
-- name: Register php extensions directory
-  shell: php -i 2>/dev/null | grep "^extension_dir" | awk -F" => " '{ print $2; }'
-  register: php_extension_dir
-
-- include: php5-extensions.yml
-  when: (php_version == '5.4') or (php_version == '5.5') or (php_version == '5.6')
-
-- include: php7-extensions.yml
-  when: php_version == '7.0'
-
-- name: Stop apache server in favour of nginx if it was installed unintentionally
-  service: name=apache2 state=stopped
-  ignore_errors: yes
-  notify:
-    - Restart nginx
-  when: (apache is not defined or not apache) and (nginx is defined and nginx)
-
-- include: apache.yml
+- name: Include apache.yml
+  include: apache.yml
   when: apache_mod_php is defined and apache_mod_php
 
-- include: fpm.yml
+- name: Include fpm.yml
+  include: fpm.yml
   when: fpm is defined and fpm
