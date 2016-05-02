@@ -1,17 +1,17 @@
 ---
 
-- name: Register php7.0 extensions directory
-  shell: php7.0 -i 2>/dev/null | grep "^extension_dir" | awk -F" => " '{ print $2; }'
-  register: php_extension_dir
-
 - name: Install php7.0 extensions
   apt: name={{ item }} state=present
-  with_items: php70_extensions
+  with_items: php_extensions
 
-- name: Configure php7.0 cli xdebug
-  template: src=xdebug.ini.j2 dest="/etc/php/7.0/cli/conf.d/20-xdebug.ini" mode=0644
-  when: ('php-xdebug' in php70_extensions)
+- name: Configure php7.0 xdebug
+  template: src=xdebug.ini.j2 dest="/etc/php/7.0/mods-available/xdebug.ini" mode=0644
+  when: ('php-xdebug' in php_extensions)
 
-- name: Disable php7.0 cli xdebug (if wanted)
+- name: Disable xdebug for php7.0 phpdbg
+  file: dest="/etc/php/7.0/phpdbg/conf.d/20-xdebug.ini" state=absent
+  when: ('php-phpdbg' in php_extensions)
+
+- name: Disable xdebug for php7.0 cli
   file: dest="/etc/php/7.0/cli/conf.d/20-xdebug.ini" state=absent
   when: (php_disable_xdebug_cli is defined and php_disable_xdebug_cli)
