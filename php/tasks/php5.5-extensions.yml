@@ -1,17 +1,17 @@
 ---
 
-- name: Register php5.5 extensions directory
-  shell: php5.5 -i 2>/dev/null | grep "^extension_dir" | awk -F" => " '{ print $2; }'
-  register: php_extension_dir
-
 - name: Install php5.5 extensions
   apt: name={{ item }} state=present
-  with_items: php55_extensions
+  with_items: php_extensions
 
-- name: Configure php5.5 cli xdebug
-  template: src=xdebug.ini.j2 dest="/etc/php/5.5/cli/conf.d/20-xdebug.ini" mode=0644
-  when: ('php-xdebug' in php55_extensions)
+- name: Configure php5.5 xdebug
+  template: src=xdebug.ini.j2 dest="/etc/php/5.5/mods-available/xdebug.ini" mode=0644
+  when: ('php-xdebug' in php_extensions)
 
-- name: Disable php5.5 cli xdebug (if wanted)
+- name: Disable xdebug for php5.5 phpdbg
+  file: dest="/etc/php/5.5/phpdbg/conf.d/20-xdebug.ini" state=absent
+  when: ('php-phpdbg' in php_extensions)
+
+- name: Disable xdebug for php5.5 cli
   file: dest="/etc/php/5.5/cli/conf.d/20-xdebug.ini" state=absent
   when: (php_disable_xdebug_cli is defined and php_disable_xdebug_cli)

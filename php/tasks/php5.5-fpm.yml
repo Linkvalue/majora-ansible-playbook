@@ -15,9 +15,3 @@
     fpm_listen: '/run/php/php5.5-fpm.sock'
   notify:
     - Restart php5.5-fpm
-
-- name: Configure php5.5 xdebug fpm
-  template: src=xdebug.ini.j2 dest="/etc/php/5.5/fpm/conf.d/20-xdebug.ini" mode=0644
-  notify:
-    - Restart php5.5-fpm
-  when: ('php-xdebug' in php55_extensions)

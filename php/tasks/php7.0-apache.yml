@@ -8,11 +8,5 @@
 - name: Configure php7.0 apache
   template: src=php.ini.j2 dest=/etc/php/7.0/apache2/php.ini owner=root group=root mode=0644
 
-- name: Configure php7.0 xdebug apache
-  template: src=xdebug.ini.j2 dest="/etc/php/7.0/apache2/conf.d/20-xdebug.ini" mode=0644
-  notify:
-    - Restart apache2
-  when: ('php-xdebug' in php70_extensions)
-
 - name: Disable apache mod-php7.0
   shell: a2dismod php7.0
