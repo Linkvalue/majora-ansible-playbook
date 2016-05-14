@@ -1,0 +1,17 @@
+---
+
+- name: Add python2.7 ppa (fkrull/deadsnakes-python2.7)
+  apt_repository: repo="ppa:fkrull/deadsnakes-python2.7" state=present
+
+- name: Install python2.7
+  apt: name=python2.7-dev state=latest
+
+- name: Install pip2.7
+  apt: name=python-pip state=latest
+
+- name: Update pip2.7
+  shell: python2.7 -m pip install pip --upgrade
+
+- name: Install pip2.7 packages
+  pip: name={{ item }} state=present executable='pip2.7'
+  with_items: pip_packages

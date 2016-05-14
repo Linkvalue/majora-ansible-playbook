@@ -20,10 +20,13 @@ Take a look at each role's `defaults/main.yml` file to see all overridable varia
 
 | Variable    | Roles       | Description |
 |:-----------:|:-----------:|-------------|
+| pip_packages | python | **ARRAY** <br>List of python packages to install using `pip install` command (for each python_versions). <br>Default value is `[]`. |
 | php_disable_xdebug_cli | php | If set to `false`, xdebug php extension will be enabled in PHP CLI (which considerably reduces "composer" speed). <br>Default value is `true`. |
 | php_memory_limit | php | Defines [`memory_limit` setting in `php.ini`](http://php.net/manual/en/ini.core.php#ini.memory-limit). <br>Default value is `'2G'`. |
 | php_versions | php | **ARRAY** <br>Supported versions are `'5.5'`, `'5.6'`, `'7.0'`. The `php` shell command, the `sites[x].fastcgi_pass` default value for nginx templates and the `php apache module` will all use the first php version found in this array. To switch apache's php versions, you'll have to dismiss current php module, and enable the wanted one (e.g. to stop using php5.6 and start using php7.0: `sudo a2dismod php5.6 && sudo a2enmod php7.0 && sudo service apache2 restart`). <br>Default value is `['5.6']`. |
 | php_xdebug_remote_port | php | Port on which you can listen to start a remote debugging connection. <br>Default value is `'9000'`. |
+| python_versions | python | **ARRAY** <br>Supported versions are `'2.7'`, `'3.5'`. The `python` and `pip` shell commands will all use the first python version found in this array (if `python_is_first_python_versions`). <br>Default value is `['3.5']`. |
+| python_is_first_python_versions | python | If set to `false`, the `python` and `pip` shell commands will be left as is (you may want this behavior if you have unexpected issues). <br>Default value is `true`. |
 | sites | apache/nginx | **ARRAY** <br>[See "Nginx/Apache section"](#nginxapache-server-configuration). <br>Default value is `[]`. |
 | zsh_additional_commands | oh-my-zsh | **MULTI-LINES** <br>Allow to set additional commands which will be executed each time you open a ZSH terminal. <br>Default value is `export IS_VM=true`. |
 | zsh_editor | oh-my-zsh | Default terminal editor. <br>Default value is `'vim'`. |
