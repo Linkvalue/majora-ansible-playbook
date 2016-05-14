@@ -1,0 +1,20 @@
+---
+
+- name: Add python ppa (fkrull/deadsnakes)
+  apt_repository: repo="ppa:fkrull/deadsnakes" state=present
+
+- name: Include python2.7.yml
+  include: python2.7.yml
+  when: ('2.7' in python_versions)
+
+- name: Include python3.5.yml
+  include: python3.5.yml
+  when: ('3.5' in python_versions)
+
+- name: Bind python command to first version from python_versions (if python_is_first_python_versions)
+  file: src="/usr/bin/python{{ python_versions|first }}" dest=/usr/bin/python state=link force=yes
+  when: python_is_first_python_versions
+
+- name: Bind pip command to first version from python_versions (if python_is_first_python_versions)
+  file: src="/usr/local/bin/pip{{ python_versions|first }}" dest=/usr/local/bin/pip state=link force=yes
+  when: python_is_first_python_versions

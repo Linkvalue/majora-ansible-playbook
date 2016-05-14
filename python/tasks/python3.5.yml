@@ -1,0 +1,14 @@
+---
+
+- name: Install python3.5
+  apt: name=python3.5-complete state=latest
+
+- name: Install pip3.5
+  shell: python3.5 -m ensurepip
+
+- name: Update pip3.5
+  pip: name=pip state=latest executable='pip3.5'
+
+- name: Install pip3.5 packages
+  pip: name={{ item }} state=present executable='pip3.5'
+  with_items: pip_packages
