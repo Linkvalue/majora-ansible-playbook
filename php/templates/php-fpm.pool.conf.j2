@@ -1,8 +1,8 @@
 [{{ item.name }}]
 
 ; Unix user/group of processes
-user = www-data
-group = www-data
+user = {{ item.user|default('www-data') }}
+group = {{ item.group|default('www-data') }}
 
 ; The address on which to accept FastCGI requests.
 listen = {{ item.listen|default(fpm_listen) }}
