@@ -5,7 +5,7 @@
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
     composer self-update
 
-- name: Make sure main user as .composer directory
+- name: Make sure main user has .composer directory
   file: dest='{{ main_user_home_dir }}/.composer' state=directory owner={{ main_user }} group={{ main_group }}
 
 - name: Set github personal token for main user
