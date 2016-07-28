@@ -2,15 +2,15 @@
 
 - name: Install php5.6 extensions
   apt: name={{ item }} state=present
-  with_items: php_extensions
+  with_items: php56_extensions
 
 - name: Configure php5.6 xdebug
   template: src=xdebug.ini.j2 dest="/etc/php/5.6/mods-available/xdebug.ini" mode=0644
-  when: ('php-xdebug' in php_extensions)
+  when: ('php-xdebug' in php56_extensions)
 
 - name: Disable xdebug for php5.6 phpdbg
   file: dest="/etc/php/5.6/phpdbg/conf.d/20-xdebug.ini" state=absent
-  when: ('php-phpdbg' in php_extensions)
+  when: ('php-phpdbg' in php56_extensions)
 
 - name: Disable xdebug for php5.6 cli
   file: dest="/etc/php/5.6/cli/conf.d/20-xdebug.ini" state=absent

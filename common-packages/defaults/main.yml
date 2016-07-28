@@ -1,7 +1,7 @@
 ---
 
 common_packages:
-  - language-pack-fr
+  - language-pack-en
   - build-essential
   - software-properties-common
   - python-software-properties

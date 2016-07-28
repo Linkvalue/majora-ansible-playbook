@@ -21,6 +21,9 @@ Take a look at each role's `defaults/main.yml` file to see all overridable varia
 | Variable    | Roles       | Description |
 |:-----------:|:-----------:|-------------|
 | pip_packages | python | **ARRAY** <br>List of python packages to install using `pip install` command (for each python_versions). <br>Default value is `[]`. |
+| php55_extensions | php | **ARRAY** <br>List of apt-get packages which will be installed if `php_versions` contains `5.5`. <br>See default value [here](php/defaults/main.yml). |
+| php56_extensions | php | **ARRAY** <br>List of apt-get packages which will be installed if `php_versions` contains `5.6`. <br>See default value [here](php/defaults/main.yml). |
+| php70_extensions | php | **ARRAY** <br>List of apt-get packages which will be installed if `php_versions` contains `7.0`. <br>See default value [here](php/defaults/main.yml). |
 | php_disable_xdebug_cli | php | If set to `false`, xdebug php extension will be enabled in PHP CLI (which considerably reduces "composer" speed). <br>Default value is `true`. |
 | php_memory_limit | php | Defines [`memory_limit` setting in `php.ini`](http://php.net/manual/en/ini.core.php#ini.memory-limit). <br>Default value is `'2G'`. |
 | php_versions | php | **ARRAY** <br>Supported versions are `'5.5'`, `'5.6'`, `'7.0'`. The `php` shell command, the `sites[x].fastcgi_pass` default value for nginx templates and the `php apache module` will all use the first php version found in this array. To switch apache's php versions, you'll have to dismiss current php module, and enable the wanted one (e.g. to stop using php5.6 and start using php7.0: `sudo a2dismod php5.6 && sudo a2enmod php7.0 && sudo service apache2 restart`). <br>Default value is `['5.6']`. |
