@@ -6,8 +6,8 @@ group = {{ item.group|default('www-data') }}
 
 ; The address on which to accept FastCGI requests.
 listen = {{ item.listen|default(fpm_listen) }}
-listen.owner = www-data
-listen.group = www-data
+listen.owner = {{ item.listen_owner|default('www-data') }}
+listen.group = {{ item.listen_group|default('www-data') }}
 
 ; Choose how the process manager will control the number of child processes.
 pm = {{ item.pm|default('dynamic') }}

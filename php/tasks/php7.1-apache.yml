@@ -1,0 +1,12 @@
+---
+
+- name: Install php7.1 apache lib
+  apt: name={{ item }} state=present
+  with_items:
+    - libapache2-mod-php7.1
+
+- name: Configure php7.1 apache
+  template: src=php.ini.j2 dest=/etc/php/7.1/apache2/php.ini owner=root group=root mode=0644
+
+- name: Disable apache mod-php7.1
+  shell: a2dismod php7.1

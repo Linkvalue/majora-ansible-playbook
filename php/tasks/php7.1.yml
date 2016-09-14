@@ -1,0 +1,12 @@
+---
+
+- name: Install php7.1
+  apt: name={{ item }} state=present
+  with_items:
+    - php7.1
+    - php7.1-cli
+    - php7.1-dev
+    - php-pear
+
+- name: Configure php7.1 cli
+  template: src=php.ini.j2 dest="/etc/php/7.1/cli/php.ini" mode=0644

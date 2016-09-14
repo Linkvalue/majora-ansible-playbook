@@ -11,3 +11,7 @@
 - name: Include php7.0-fpm.yml
   include: php7.0-fpm.yml
   when: ('7.0' in php_versions)
+
+- name: Include php7.1-fpm.yml
+  include: php7.1-fpm.yml
+  when: ('7.1' in php_versions)
