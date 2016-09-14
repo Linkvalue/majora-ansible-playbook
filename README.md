@@ -20,6 +20,9 @@ Take a look at each role's `defaults/main.yml` file to see all overridable varia
 
 | Variable    | Roles       | Description |
 |:-----------:|:-----------:|-------------|
+| common_packages | common-packages | **ARRAY** <br>List of common packages to install using `apt-get install` command. <br>See default value [here](common-packages/defaults/main.yml). |
+| extra_packages | common-packages | **ARRAY** <br>List of extra packages to install using `apt-get install` command. <br>Default value is `[]`. |
+| language | common-packages | Value for "locales" related environment variables (i.e. `LANG`, `LANGUAGE`, `LC_ALL`). <br>Default value is `en_US.UTF-8`. |
 | pip_packages | python | **ARRAY** <br>List of python packages to install using `pip install` command (for each python_versions). <br>Default value is `[]`. |
 | php55_extensions | php | **ARRAY** <br>List of apt-get packages which will be installed if `php_versions` contains `5.5`. <br>See default value [here](php/defaults/main.yml). |
 | php56_extensions | php | **ARRAY** <br>List of apt-get packages which will be installed if `php_versions` contains `5.6`. <br>See default value [here](php/defaults/main.yml). |
@@ -31,6 +34,7 @@ Take a look at each role's `defaults/main.yml` file to see all overridable varia
 | python_versions | python | **ARRAY** <br>Supported versions are `'2.7'`, `'3.5'`. <br>Default value is `['3.5']`. |
 | python_is_first_python_versions | python | If set to `true`, the `python` and `pip` shell commands will all use the first python version found in `python_versions` array (it may lead to unexpected issues because Ansible itself use `python`). <br>Default value is `false`. |
 | sites | apache/nginx | **ARRAY** <br>[See "Nginx/Apache section"](#nginxapache-server-configuration). <br>Default value is `[]`. |
+| timezone | common-packages | Value for timezone system configuration. <br>Default value is `UTC`. |
 | zsh_additional_commands | oh-my-zsh | **MULTI-LINES** <br>Allow to set additional commands which will be executed each time you open a ZSH terminal. <br>Default value is `export IS_VM=true`. |
 | zsh_editor | oh-my-zsh | Default terminal editor. <br>Default value is `'vim'`. |
 | zsh_theme | oh-my-zsh | Supported themes for `oh-my-zsh` are located in `~/.oh-my-zsh/themes/` inside the VM. <br>Default value is `'robbyrussell'`. |
