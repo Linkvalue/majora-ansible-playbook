@@ -1,7 +1,6 @@
 ---
 
 common_packages:
-  - language-pack-en
   - build-essential
   - software-properties-common
   - python-software-properties
@@ -16,4 +15,8 @@ common_packages:
   - tar
   - ntp
 
+extra_packages: []
+
+language: 'en_US.UTF-8'
 timezone: 'UTC'
+base_path: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games'
