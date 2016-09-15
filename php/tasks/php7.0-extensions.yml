@@ -10,7 +10,7 @@
 
 - name: Disable xdebug for php7.0 phpdbg
   file: dest="/etc/php/7.0/phpdbg/conf.d/20-xdebug.ini" state=absent
-  when: ('php-phpdbg' in php70_extensions)
+  when: ('php7.0-phpdbg' in php70_extensions)
 
 - name: Disable xdebug for php7.0 cli
   file: dest="/etc/php/7.0/cli/conf.d/20-xdebug.ini" state=absent

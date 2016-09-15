@@ -1,0 +1,17 @@
+---
+
+- name: Install php7.1 fpm lib
+  apt: name={{ item }} state=present
+  with_items:
+    - php7.1-fpm
+
+- name: Configure php7.1 fpm
+  template: src=php.ini.j2 dest="/etc/php/7.1/fpm/php.ini" mode=0644
+
+- name: Configure php7.1 fpm pools
+  template: src=php-fpm.pool.conf.j2 dest="/etc/php/7.1/fpm/pool.d/{{ item.name }}.conf" mode=0644
+  with_items: fpm_pools
+  vars:
+    fpm_listen: '/run/php/php7.1-fpm.sock'
+  notify:
+    - Restart php7.1-fpm

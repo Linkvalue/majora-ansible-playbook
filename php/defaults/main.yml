@@ -18,6 +18,7 @@ php55_extensions:
   - php5.5-mcrypt
   - php5.5-mysql
   - php5.5-pgsql
+  - php5.5-phpdbg
   - php5.5-readline
   - php5.5-sqlite3
   - php5.5-xml
@@ -27,7 +28,6 @@ php55_extensions:
   - php-imagick
   - php-memcache
   - php-mongodb
-  - php-phpdbg
   - php-redis
   - php-stomp
   - php-xdebug
@@ -45,6 +45,7 @@ php56_extensions:
   - php5.6-mcrypt
   - php5.6-mysql
   - php5.6-pgsql
+  - php5.6-phpdbg
   - php5.6-readline
   - php5.6-sqlite3
   - php5.6-xml
@@ -54,7 +55,6 @@ php56_extensions:
   - php-imagick
   - php-memcache
   - php-mongodb
-  - php-phpdbg
   - php-redis
   - php-stomp
   - php-xdebug
@@ -72,6 +72,7 @@ php70_extensions:
   - php7.0-mcrypt
   - php7.0-mysql
   - php7.0-pgsql
+  - php7.0-phpdbg
   - php7.0-readline
   - php7.0-sqlite3
   - php7.0-xml
@@ -81,10 +82,36 @@ php70_extensions:
   - php-imagick
   - php-memcache
   - php-mongodb
-  - php-phpdbg
   - php-redis
   - php-stomp
   - php-xdebug
+
+php71_extensions:
+  - php7.1-bcmath
+  - php7.1-common
+  - php7.1-curl
+  - php7.1-gd
+  - php7.1-imap
+  - php7.1-intl
+  - php7.1-json
+  - php7.1-ldap
+  - php7.1-mbstring
+  - php7.1-mcrypt
+  - php7.1-mysql
+  - php7.1-pgsql
+  - php7.1-phpdbg
+  - php7.1-readline
+  - php7.1-sqlite3
+  - php7.1-xml
+  - php7.1-zip
+#  - php-amqp # (not available yet)
+  - php-apcu
+#  - php-imagick # (not available yet)
+#  - php-memcache # (not available yet)
+#  - php-mongodb # (not available yet)
+#  - php-redis # (not available yet)
+#  - php-stomp # (not available yet)
+#  - php-xdebug # (not available yet)
 
 fpm_pools:
     - { name: 'www' }
