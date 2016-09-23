@@ -25,4 +25,4 @@
     dest=/etc/environment
 
 - name: Reconfigure locales
-  command: dpkg-reconfigure locales
+  command: dpkg-reconfigure --frontend=noninteractive locales
