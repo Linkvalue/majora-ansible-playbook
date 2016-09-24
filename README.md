@@ -10,6 +10,7 @@ Compilation of Ansible roles for Ubuntu 14.04 (for Ubuntu 12.04, use the old [v0
 
 The easiest way to get started is to try our [Vagrant implementation](https://github.com/LinkValue/majora-ansible-vagrant).
 
+*Pro tips:* If you don't want any troubles, you should always start by including the `common-packages` role in your machine.
 
 
 ## Variables reference (in alphabetical order)
@@ -21,8 +22,15 @@ Take a look at each role's `defaults/main.yml` file to see all overridable varia
 | Variable    | Roles       | Description |
 |:-----------:|:-----------:|-------------|
 | common_packages | common-packages | **ARRAY** <br>List of common packages to install using `apt-get install` command. <br>See default value [here](common-packages/defaults/main.yml). |
+| composer_github_token | composer | [GitHub personal access token](https://github.com/settings/tokens) to pass through the composer download limit. <br>Default value is `''`. |
+| composer_packages | composer | **ARRAY** <br>List of composer packages to install globally using `composer global install` command. <br>Default value is `['symfony/var-dumper']` (which allows you to use `dump()` function everywhere). |
 | extra_packages | common-packages | **ARRAY** <br>List of extra packages to install using `apt-get install` command. <br>Default value is `[]`. |
 | language | common-packages | Value for "locales" related environment variables (i.e. `LANG`, `LANGUAGE`, `LC_ALL`). <br>Default value is `en_US.UTF-8`. |
+| main_group | composer/oh-my-zsh/ssh-forward | Main group (main user's group). <br>Default value is `vagrant`. |
+| main_user | composer/oh-my-zsh/ssh-forward | Main user (the one you'll use in the provisioned machine). <br>Default value is `vagrant`. |
+| main_user_home_dir | composer/oh-my-zsh/ssh-forward | Main user's home directory. <br>Default value is `/home/vagrant`. |
+| node_version | nodejs | NodeJS version to install. This value will be append to `https://deb.nodesource.com/setup_`. <br>Default value is `6.x`. |
+| npm_packages | nodejs | **ARRAY** <br>List of npm packages to install globally using `npm install -g` command. <br>See default value [here](nodejs/defaults/main.yml). |
 | pip_packages | python | **ARRAY** <br>List of python packages to install using `pip install` command (for each python_versions). <br>Default value is `[]`. |
 | php55_extensions | php | **ARRAY** <br>List of apt-get packages which will be installed if `php_versions` contains `5.5`. <br>See default value [here](php/defaults/main.yml). |
 | php56_extensions | php | **ARRAY** <br>List of apt-get packages which will be installed if `php_versions` contains `5.6`. <br>See default value [here](php/defaults/main.yml). |
@@ -30,12 +38,13 @@ Take a look at each role's `defaults/main.yml` file to see all overridable varia
 | php71_extensions | php | **ARRAY** <br>List of apt-get packages which will be installed if `php_versions` contains `7.1`. <br>See default value [here](php/defaults/main.yml). |
 | php_disable_xdebug_cli | php | If set to `false`, xdebug php extension will be enabled in PHP CLI (which considerably reduces "composer" speed). <br>Default value is `true`. |
 | php_memory_limit | php | Defines [`memory_limit` setting in `php.ini`](http://php.net/manual/en/ini.core.php#ini.memory-limit). <br>Default value is `'2G'`. |
-| php_versions | php | **ARRAY** <br>Supported versions are `'5.5'`, `'5.6'`, `'7.0'`, `'7.1'`. The `php` shell command, the `sites[x].fastcgi_pass` default value for nginx templates and the `php apache module` will all use the first php version found in this array. To switch apache's php versions, you'll have to dismiss current php module, and enable the wanted one (e.g. to stop using php5.6 and start using php7.0: `sudo a2dismod php5.6 && sudo a2enmod php7.0 && sudo service apache2 restart`). <br>Default value is `['5.6']`. |
+| php_versions | php | **ARRAY** <br>Supported versions are `'5.5'`, `'5.6'`, `'7.0'`, `'7.1'`. The `php` shell command, the `sites[x].fastcgi_pass` default value for nginx templates and the `php apache module` will all use the first php version found in this array. To switch apache's php versions, you'll have to dismiss current php module, and enable the wanted one (e.g. to stop using php5.6 and start using php7.0: `sudo a2dismod php5.6 && sudo a2enmod php7.0 && sudo service apache2 restart`). <br>Default value is `['7.0']`. |
 | php_xdebug_remote_port | php | Port on which you can listen to start a remote debugging connection. <br>Default value is `'9000'`. |
 | python_versions | python | **ARRAY** <br>Supported versions are `'2.7'`, `'3.5'`. <br>Default value is `['3.5']`. |
 | python_is_first_python_versions | python | If set to `true`, the `python` and `pip` shell commands will all use the first python version found in `python_versions` array (it may lead to unexpected issues because Ansible itself use `python`). <br>Default value is `false`. |
 | sites | apache/nginx | **ARRAY** <br>[See "Nginx/Apache section"](#nginxapache-server-configuration). <br>Default value is `[]`. |
 | timezone | common-packages | Value for timezone system configuration. <br>Default value is `UTC`. |
+| workspace | oh-my-zsh | Full path directory where you'll land on session start. <br>Default value is `/var/www`. |
 | zsh_additional_commands | oh-my-zsh | **MULTI-LINES** <br>Allow to set additional commands which will be executed each time you open a ZSH terminal. <br>Default value is `export IS_VM=true`. |
 | zsh_editor | oh-my-zsh | Default terminal editor. <br>Default value is `'vim'`. |
 | zsh_theme | oh-my-zsh | Supported themes for `oh-my-zsh` are located in `~/.oh-my-zsh/themes/` inside the VM. <br>Default value is `'robbyrussell'`. |

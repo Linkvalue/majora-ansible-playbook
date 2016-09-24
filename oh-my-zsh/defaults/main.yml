@@ -1,11 +1,12 @@
 ---
 
 main_user: 'vagrant'
+main_group: 'vagrant'
 main_user_home_dir: '/home/vagrant'
 
 workspace: '/var/www'
 
 zsh_theme: 'robbyrussell'
 zsh_editor: 'vim'
-zsh_additional_commands: >
+zsh_additional_commands: |
   export IS_VM=true

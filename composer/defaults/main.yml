@@ -5,3 +5,6 @@ main_group: 'vagrant'
 main_user_home_dir: '/home/vagrant'
 
 composer_github_token: ''
+
+composer_packages:
+  - 'symfony/var-dumper'

@@ -1,0 +1,111 @@
+---
+
+# PHP5.5
+- name: Setup autoloader for php5.5 cli
+  lineinfile:
+    dest: '/etc/php/5.5/cli/php.ini'
+    insertafter: '^auto_prepend_file'
+    line: 'auto_prepend_file = {{ composer_autoloader }}'
+  when: ('5.5' in php_versions)
+
+- name: Setup autoloader for php5.5 fpm
+  lineinfile:
+    dest: '/etc/php/5.5/fpm/php.ini'
+    insertafter: '^auto_prepend_file'
+    line: 'auto_prepend_file = {{ composer_autoloader }}'
+  notify:
+    - Restart php5.5-fpm
+  when: ('5.5' in php_versions) and (fpm is defined and fpm)
+
+- name: Setup autoloader for php5.5 apache
+  lineinfile:
+    dest: '/etc/php/5.5/apache/php.ini'
+    insertafter: '^auto_prepend_file'
+    line: 'auto_prepend_file = {{ composer_autoloader }}'
+  notify:
+    - Restart apache2
+  when: ('5.5' in php_versions) and (apache_mod_php is defined and apache_mod_php)
+
+
+
+# PHP5.6
+- name: Setup autoloader for php5.6 cli
+  lineinfile:
+    dest: '/etc/php/5.6/cli/php.ini'
+    insertafter: '^auto_prepend_file'
+    line: 'auto_prepend_file = {{ composer_autoloader }}'
+  when: ('5.6' in php_versions)
+
+- name: Setup autoloader for php5.6 fpm
+  lineinfile:
+    dest: '/etc/php/5.6/fpm/php.ini'
+    insertafter: '^auto_prepend_file'
+    line: 'auto_prepend_file = {{ composer_autoloader }}'
+  notify:
+    - Restart php5.6-fpm
+  when: ('5.6' in php_versions) and (fpm is defined and fpm)
+
+- name: Setup autoloader for php5.6 apache
+  lineinfile:
+    dest: '/etc/php/5.6/apache/php.ini'
+    insertafter: '^auto_prepend_file'
+    line: 'auto_prepend_file = {{ composer_autoloader }}'
+  notify:
+    - Restart apache2
+  when: ('5.6' in php_versions) and (apache_mod_php is defined and apache_mod_php)
+
+
+
+# PHP7.0
+- name: Setup autoloader for php7.0 cli
+  lineinfile:
+    dest: '/etc/php/7.0/cli/php.ini'
+    insertafter: '^auto_prepend_file'
+    line: 'auto_prepend_file = {{ composer_autoloader }}'
+  when: ('7.0' in php_versions)
+
+- name: Setup autoloader for php7.0 fpm
+  lineinfile:
+    dest: '/etc/php/7.0/fpm/php.ini'
+    insertafter: '^auto_prepend_file'
+    line: 'auto_prepend_file = {{ composer_autoloader }}'
+  notify:
+    - Restart php7.0-fpm
+  when: ('7.0' in php_versions) and (fpm is defined and fpm)
+
+- name: Setup autoloader for php7.0 apache
+  lineinfile:
+    dest: '/etc/php/7.0/apache/php.ini'
+    insertafter: '^auto_prepend_file'
+    line: 'auto_prepend_file = {{ composer_autoloader }}'
+  notify:
+    - Restart apache2
+  when: ('7.0' in php_versions) and (apache_mod_php is defined and apache_mod_php)
+
+
+
+# PHP7.1
+- name: Setup autoloader for php7.1 cli
+  lineinfile:
+    dest: '/etc/php/7.1/cli/php.ini'
+    insertafter: '^auto_prepend_file'
+    line: 'auto_prepend_file = {{ composer_autoloader }}'
+  when: ('7.1' in php_versions)
+
+- name: Setup autoloader for php7.1 fpm
+  lineinfile:
+    dest: '/etc/php/7.1/fpm/php.ini'
+    insertafter: '^auto_prepend_file'
+    line: 'auto_prepend_file = {{ composer_autoloader }}'
+  notify:
+    - Restart php7.1-fpm
+  when: ('7.1' in php_versions) and (fpm is defined and fpm)
+
+- name: Setup autoloader for php7.1 apache
+  lineinfile:
+    dest: '/etc/php/7.1/apache/php.ini'
+    insertafter: '^auto_prepend_file'
+    line: 'auto_prepend_file = {{ composer_autoloader }}'
+  notify:
+    - Restart apache2
+  when: ('7.1' in php_versions) and (apache_mod_php is defined and apache_mod_php)
