@@ -1,6 +1,6 @@
 ---
 
-php_versions: ['5.6']
+php_versions: ['7.0']
 php_memory_limit: '2G'
 php_disable_xdebug_cli: true
 php_xdebug_remote_port: '9000'

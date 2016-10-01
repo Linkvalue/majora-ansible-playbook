@@ -15,6 +15,10 @@
   include: php7.0.yml
   when: ('7.0' in php_versions)
 
+- name: Include php7.1.yml
+  include: php7.1.yml
+  when: ('7.1' in php_versions)
+
 - name: Include php5.5-extensions.yml
   include: php5.5-extensions.yml
   when: ('5.5' in php_versions)

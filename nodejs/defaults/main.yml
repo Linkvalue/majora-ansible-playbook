@@ -1,6 +1,6 @@
 ---
 
-node_version: '5.x'
+node_version: '6.x'
 
 npm_packages:
   - pm2

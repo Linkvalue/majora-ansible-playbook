@@ -5,8 +5,30 @@
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
     composer self-update
 
-- name: Make sure main user has .composer directory
-  file: dest='{{ main_user_home_dir }}/.composer' state=directory owner={{ main_user }} group={{ main_group }}
+- name: Install composer global packages
+  command: 'composer global require {{ item }}'
+  with_items: composer_packages
+
+- name: Get fact of composer_root_user_home
+  stat: path='/root/.composer'
+  register: composer_root_user_home
+
+- name: Copy composer directory from root user to main user
+  command: '\cp -rf /root/.composer {{ main_user_home_dir }}/'
+  when: composer_root_user_home.stat.exists
+
+- name: Setup permissions for main user's composer home
+  file: dest='{{ main_user_home_dir }}/.composer' state=directory owner={{ main_user }} group={{ main_group }} recurse=yes
+
+- name: Get fact of composer_main_user_autoloader
+  stat: path='{{ main_user_home_dir }}/.composer/vendor/autoload.php'
+  register: composer_main_user_autoloader
+
+- name: Setup composer global packages autoloading
+  include: global-autoloader.yml
+  vars:
+    composer_autoloader: '{{ main_user_home_dir }}/.composer/vendor/autoload.php'
+  when: composer_main_user_autoloader.stat.exists
 
 - name: Set github personal token for main user
   template: src=auth.json.j2 dest='{{ main_user_home_dir }}/.composer/auth.json' owner={{ main_user }} group={{ main_group }}

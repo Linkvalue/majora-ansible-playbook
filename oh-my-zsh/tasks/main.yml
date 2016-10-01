@@ -9,7 +9,7 @@
   template: src=zshrc.j2 dest=~/.zshrc
 
 - name: Configure oh-my-zsh for main user
-  template: src=zshrc.j2 dest='{{ main_user_home_dir }}/.zshrc'
+  template: src=zshrc.j2 dest='{{ main_user_home_dir }}/.zshrc' owner={{ main_user }} group={{ main_group }}
 
 - name: Set zsh as default shell for root user
   user: name=root shell=/bin/zsh

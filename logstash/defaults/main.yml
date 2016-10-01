@@ -2,7 +2,7 @@
 
 logstash_version: '2.1'
 
-logstash_config: >
+logstash_config: |
   input {
     # inputs
   }
