@@ -10,7 +10,7 @@
 
 - name: Configure php5.5 fpm pools
   template: src=php-fpm.pool.conf.j2 dest="/etc/php/5.5/fpm/pool.d/{{ item.name }}.conf" mode=0644
-  with_items: fpm_pools
+  with_items: '{{ fpm_pools }}'
   vars:
     fpm_listen: '/run/php/php5.5-fpm.sock'
   notify:

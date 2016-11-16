@@ -13,11 +13,11 @@
 
 - name: Install common packages
   apt: name={{ item }} state=present
-  with_items: common_packages
+  with_items: '{{ common_packages }}'
 
 - name: Install extra packages
   apt: name={{ item }} state=present
-  with_items: extra_packages
+  with_items: '{{ extra_packages }}'
 
 - name: Set environment config file
   template:

@@ -29,7 +29,7 @@
   postgresql_db: >
     name={{ item.name }}
     state=present
-  with_items: postgresql.databases|default([])
+  with_items: '{{ postgresql.databases|default([]) }}'
 
 - name: Create postgresql users
   become: yes
@@ -39,4 +39,4 @@
     password={{ item.password|default(item.name) }}
     role_attr_flags={{ item.role|default('SUPERUSER') }}
     state=present
-  with_items: postgresql.users|default([])
+  with_items: '{{ postgresql.users|default([]) }}'

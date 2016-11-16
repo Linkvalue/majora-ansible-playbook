@@ -26,9 +26,9 @@ Take a look at each role's `defaults/main.yml` file to see all overridable varia
 | composer_packages | composer | **ARRAY** <br>List of composer packages to install globally using `composer global install` command. <br>Default value is `['symfony/var-dumper']` (which allows you to use `dump()` function everywhere). |
 | extra_packages | common-packages | **ARRAY** <br>List of extra packages to install using `apt-get install` command. <br>Default value is `[]`. |
 | language | common-packages | Value for "locales" related environment variables (i.e. `LANG`, `LANGUAGE`, `LC_ALL`). <br>Default value is `en_US.UTF-8`. |
-| main_group | composer/oh-my-zsh/ssh-forward | Main group (main user's group). <br>Default value is `vagrant`. |
-| main_user | composer/oh-my-zsh/ssh-forward | Main user (the one you'll use in the provisioned machine). <br>Default value is `vagrant`. |
-| main_user_home_dir | composer/oh-my-zsh/ssh-forward | Main user's home directory. <br>Default value is `/home/vagrant`. |
+| main_group | composer/oh-my-zsh | Main group (main user's group). <br>Default value is `vagrant`. |
+| main_user | composer/oh-my-zsh | Main user (the one you'll use in the provisioned machine). <br>Default value is `vagrant`. |
+| main_user_home_dir | composer/oh-my-zsh | Main user's home directory. <br>Default value is `/home/vagrant`. |
 | node_version | nodejs | NodeJS version to install. This value will be append to `https://deb.nodesource.com/setup_`. <br>Default value is `6.x`. |
 | npm_packages | nodejs | **ARRAY** <br>List of npm packages to install globally using `npm install -g` command. <br>See default value [here](nodejs/defaults/main.yml). |
 | pip_packages | python | **ARRAY** <br>List of python packages to install using `pip install` command (for each python_versions). <br>Default value is `[]`. |

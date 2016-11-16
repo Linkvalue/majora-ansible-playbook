@@ -7,7 +7,7 @@
 
 - name: Install composer global packages
   command: 'composer global require {{ item }}'
-  with_items: composer_packages
+  with_items: '{{ composer_packages }}'
 
 - name: Get fact of composer_root_user_home
   stat: path='/root/.composer'

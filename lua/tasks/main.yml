@@ -8,8 +8,8 @@
 
 - name: Install lua packages
   apt: name={{ item }} state=present
-  with_items: lua_packages
+  with_items: '{{ lua_packages }}'
 
 - name: Install luarocks packages
   command: luarocks install {{ item }}
-  with_items: lua_rocks_packages
+  with_items: '{{ lua_rocks_packages }}'

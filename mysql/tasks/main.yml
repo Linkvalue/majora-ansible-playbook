@@ -13,7 +13,7 @@
 
 - name: Create mysql databases
   mysql_db: name={{ item.name }} state=present
-  with_items: mysql.databases|default([])
+  with_items: '{{ mysql.databases|default([]) }}'
 
 - name: Create mysql users
   mysql_user: >
@@ -22,7 +22,7 @@
     host={{ item.host|default('%')}}
     priv={{ item.priv|default('*.*:ALL') }}
     state=present
-  with_items: mysql.users|default([])
+  with_items: '{{ mysql.users|default([]) }}'
 
 - name: Configure mysql server
   template: src=my.cnf.j2 dest=/etc/mysql/my.cnf

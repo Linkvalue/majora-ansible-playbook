@@ -6,4 +6,4 @@
     dest: /etc/hosts
 #    regexp: "^(?:[0-9]{1,3}{{ '.' | regex_escape() }}){3}[0-9]{1,3} {{ item.hostname | regex_escape() }}$"
     line: "{{ item.ip }} {{ item.hostname }}"
-  with_items: etc_hosts_lines
+  with_items: '{{ etc_hosts_lines }}'
