@@ -2,7 +2,7 @@
 
 - name: Install php7.1 extensions
   apt: name={{ item }} state=present
-  with_items: php71_extensions
+  with_items: '{{ php71_extensions }}'
 
 - name: Configure php7.1 xdebug
   template: src=xdebug.ini.j2 dest="/etc/php/7.1/mods-available/xdebug.ini" mode=0644

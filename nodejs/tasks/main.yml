@@ -14,4 +14,4 @@
 
 - name: Install npm global packages
   npm: name={{ item }} global=yes
-  with_items: npm_packages
+  with_items: '{{ npm_packages }}'

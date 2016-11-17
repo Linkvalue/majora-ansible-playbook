@@ -1,7 +1,0 @@
----
-
-main_user: 'vagrant'
-main_group: 'vagrant'
-main_user_home_dir: '/home/vagrant'
-
-ssh_folder: ~/.ssh

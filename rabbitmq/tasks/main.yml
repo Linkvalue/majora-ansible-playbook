@@ -24,7 +24,7 @@
     write_priv={{ item.write_priv|default('.*') }}
     tags={{ item.tags|default('administrator') }}
     state=present
-  with_items: rabbitmq.users
+  with_items: '{{ rabbitmq.users }}'
   notify:
     - Restart rabbitmq
   when: rabbitmq is defined and rabbitmq.users is defined

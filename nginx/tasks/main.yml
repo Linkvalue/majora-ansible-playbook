@@ -8,7 +8,7 @@
 
 - name: Push virtualhost configuration files
   template: src="{{ item.template }}" dest="/etc/nginx/sites-enabled/{{ item.name }}.conf"
-  with_items: sites
+  with_items: '{{ sites }}'
   notify:
     - Restart nginx
 

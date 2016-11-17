@@ -14,4 +14,4 @@
 
 - name: Install pip2.7 packages
   pip: name={{ item }} state=present executable='pip2.7'
-  with_items: pip_packages
+  with_items: '{{ pip_packages }}'

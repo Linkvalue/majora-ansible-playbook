@@ -2,7 +2,7 @@
 
 - name: Install php5.5 extensions
   apt: name={{ item }} state=present
-  with_items: php55_extensions
+  with_items: '{{ php55_extensions }}'
 
 - name: Configure php5.5 xdebug
   template: src=xdebug.ini.j2 dest="/etc/php/5.5/mods-available/xdebug.ini" mode=0644

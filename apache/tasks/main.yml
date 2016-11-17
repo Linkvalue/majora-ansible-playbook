@@ -5,11 +5,11 @@
 
 - name: Enable apache2 modules
   apache2_module: name="{{ item }}" state=present
-  with_items: apache_modules
+  with_items: '{{ apache_modules }}'
 
 - name: Push virtualhost configuration files
   template: src="{{ item.template }}" dest="/etc/apache2/sites-enabled/{{ item.name }}.conf"
-  with_items: sites
+  with_items: '{{ sites }}'
   notify:
     - Restart apache2
 

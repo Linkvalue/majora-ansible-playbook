@@ -27,7 +27,7 @@
     password={{ item.password|default(item.name)}}
     database={{ item.database|default('admin') }}
     state=present
-  with_items: mongodb.users|default([])
+  with_items: '{{ mongodb.users|default([]) }}'
 
 - name: Configure mongodb with authentication
   template: src=mongod.conf.j2 dest=/etc/mongod.conf

@@ -2,7 +2,7 @@
 
 - name: Install php5.6 extensions
   apt: name={{ item }} state=present
-  with_items: php56_extensions
+  with_items: '{{ php56_extensions }}'
 
 - name: Configure php5.6 xdebug
   template: src=xdebug.ini.j2 dest="/etc/php/5.6/mods-available/xdebug.ini" mode=0644
