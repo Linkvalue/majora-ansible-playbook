@@ -1,4 +1,4 @@
 ---
 
 dependencies:
-  - { role: ruby } # rvm_io.rvm1-ruby ( https://github.com/rvm/rvm1-ansible )
+  - { role: ruby }

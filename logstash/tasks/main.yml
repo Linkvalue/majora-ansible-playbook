@@ -1,13 +1,13 @@
 ---
 
 - name: Add logstash gpg key
-  shell: wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | apt-key add -
+  apt_key: url=https://artifacts.elastic.co/GPG-KEY-elasticsearch state=present
 
 - name: Add logstash repo
-  shell: echo 'deb http://packages.elastic.co/logstash/{{ logstash_version }}/debian stable main' > /etc/apt/sources.list.d/logstash.list
+  apt_repository: repo='deb https://artifacts.elastic.co/packages/{{ logstash_version }}/apt stable main' state=present
 
 - name: Install logstash in /opt/logstash/bin
-  apt: name=logstash state=present update_cache=yes
+  apt: name=logstash state=present
 
 - name: Configure logstash
   template: src=logstash.conf.j2 dest=/etc/logstash/conf.d/logstash.conf

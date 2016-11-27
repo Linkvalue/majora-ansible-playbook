@@ -1,10 +1,10 @@
 ---
 
 - name: Add mongodb gpg key
-  command: apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+  apt_key: keyserver='hkp://keyserver.ubuntu.com:80' id=7F0CEB10 state=present
 
 - name: Add mongodb repo
-  shell: echo "deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen" > /etc/apt/sources.list.d/mongodb.list
+  apt_repository: repo='deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' state=present
 
 - name: Install mongodb
   apt: name={{ item }} state=present update_cache=yes

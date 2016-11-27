@@ -1,7 +1,7 @@
 ---
 
 - name: Add postgresql gpg key
-  shell: wget -qO - https://postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+  apt_key: url=https://postgresql.org/media/keys/ACCC4CF8.asc state=present
 
 - name: Add postgresql repo
   apt_repository: repo="deb https://apt.postgresql.org/pub/repos/apt/ {{ ansible_lsb.codename }}-pgdg main" state=present
