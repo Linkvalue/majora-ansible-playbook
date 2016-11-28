@@ -4,6 +4,7 @@ common_packages:
   - build-essential
   - software-properties-common
   - python-software-properties
+  - apt-transport-https
   - nano
   - vim
   - zsh

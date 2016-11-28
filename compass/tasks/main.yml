@@ -1,7 +1,7 @@
 ---
 
 - name: Install compass
-  gem: name=compass state=present user_install=no
+  gem: name=compass state=present user_install=no version={{ compass_version }}
 
 - name: Add compass symlink
   file: src=/usr/local/bin/compass dest=/usr/bin/compass state=link force=yes

@@ -1,4 +1,4 @@
 ---
 
 - name: Install capistrano
-  gem: name=capistrano state=present user_install=no
+  gem: name=capistrano state=present user_install=no version={{ capistrano_version }}

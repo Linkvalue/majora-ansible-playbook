@@ -1,7 +1,7 @@
 ---
 
 - name: Install sass
-  gem: name=sass state=present user_install=no
+  gem: name=sass state=present user_install=no version={{ sass_version }}
 
 - name: Add sass symlink
   file: src=/usr/local/bin/sass dest=/usr/bin/sass state=link force=yes
