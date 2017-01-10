@@ -1,5 +1,10 @@
 ---
 
+- name: Check elasticsearch_version
+  fail:
+    msg: 'This plugin is not compatible with elasticsearch_version {{ elasticsearch_version }}, please use "elasticsearch-cerebro" instead.'
+  when: not (elasticsearch_version | match('^[0-2]'))
+
 - name: Check if elasticsearch-kopf is already installed
   stat: path=/usr/share/elasticsearch/plugins/kopf
   register: es_kopf

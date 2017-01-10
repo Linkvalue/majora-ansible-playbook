@@ -1,7 +1,12 @@
 ---
 
+- name: Check elasticsearch_version
+  fail:
+    msg: 'This plugin is not compatible with elasticsearch_version {{ elasticsearch_version }}, please use "elasticsearch-cerebro" instead.'
+  when: not (elasticsearch_version | match('^[0-2]'))
+
 - name: Check if elasticsearch-HQ is already installed
-  stat: path=/usr/share/elasticsearch/plugins/HQ
+  stat: path='/usr/share/elasticsearch/plugins/hq'
   register: es_HQ
 
 - name: Install elasticsearch-HQ plugin

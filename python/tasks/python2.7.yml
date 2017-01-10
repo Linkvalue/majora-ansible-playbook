@@ -10,7 +10,7 @@
   apt: name=python-pip state=latest
 
 - name: Update pip2.7
-  shell: python2.7 -m pip install pip --upgrade
+  command: python2.7 -m pip install pip --upgrade
 
 - name: Install pip2.7 packages
   pip: name={{ item }} state=present executable='pip2.7'

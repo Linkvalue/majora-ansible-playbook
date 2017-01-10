@@ -1,8 +1,0 @@
----
-
-- name: Install ghostscript
-  apt: name={{ item }} state=present
-  with_items:
-    - ghostscript
-    - libgs-dev
-    - gs-esp

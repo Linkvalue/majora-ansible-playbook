@@ -9,4 +9,4 @@
   template: src=php.ini.j2 dest=/etc/php/7.0/apache2/php.ini owner=root group=root mode=0644
 
 - name: Disable apache mod-php7.0
-  shell: a2dismod php7.0
+  command: a2dismod php7.0

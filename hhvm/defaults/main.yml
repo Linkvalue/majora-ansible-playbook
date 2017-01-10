@@ -1,5 +1,0 @@
----
-
-timezone: 'UTC'
-
-hhvm_memory_limit: '2G'

@@ -1,5 +1,10 @@
 ---
 
+- name: Check elasticsearch_version
+  fail:
+    msg: 'This plugin is not compatible with elasticsearch_version {{ elasticsearch_version }}. The "river" feature is deprecated since elasticsearch 1.5 and has been removed in 2.0.'
+  when: not (elasticsearch_version | match('^[0-1]'))
+
 - name: Check if elasticsearch-river-jdbc is already installed
   stat: path=/usr/share/elasticsearch/plugins/jdbc
   register: es_river_jdbc

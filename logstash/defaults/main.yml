@@ -1,6 +1,6 @@
 ---
 
-logstash_version: '5.x'
+logstash_version: '5.1.2'
 
 logstash_config: |
   input {

@@ -2,8 +2,8 @@
 
 - name: Install oh-my-zsh
   shell: >
-    wget -qO - https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | bash - && \
-    cp -R ~/.oh-my-zsh '{{ main_user_home_dir }}/'
+    wget -qO - https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | bash -
+    && cp -R ~/.oh-my-zsh '{{ main_user_home_dir }}/'
 
 - name: Configure oh-my-zsh for root user
   template: src=zshrc.j2 dest=~/.zshrc

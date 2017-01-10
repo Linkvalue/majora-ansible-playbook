@@ -1,24 +1,24 @@
 ---
 
-- name: Check if apollo is already installed
-  stat: path=/var/lib/apollobroker
-  register: apollo
+- name: Create /etc/apollo directory
+  file: dest='/etc/apollo' state=directory
 
-- name: Install apollo
+- name: Download apollo archive
+  get_url:
+    url: 'http://apache.crihan.fr/dist/activemq/activemq-apollo/{{ apollo_version }}/apache-apollo-{{ apollo_version }}-unix-distro.tar.gz'
+    dest: '/tmp/apollo-{{ apollo_version }}.tar.gz'
+
+- name: Extract apollo archive in /etc/apollo
+  command: 'tar zxf /tmp/apollo-{{ apollo_version }}.tar.gz -C /etc/apollo --strip-components=1'
+
+- name: Create apollo broker instance
   shell: >
-    wget -qO - http://apache.crihan.fr/dist/activemq/activemq-apollo/{{ apollo_version }}/apache-apollo-{{ apollo_version }}-unix-distro.tar.gz | tar zxvf - && \
-    mv apache-apollo-{{ apollo_version }} ~/apollo-{{ apollo_version }}
-  when: not apollo.stat.exists
+    cd /var/lib
+    && /etc/apollo/bin/apollo create apollobroker
+    && ln -s /var/lib/apollobroker/bin/apollo-broker-service /etc/init.d/
 
-- name: Create broker instance
-  shell: >
-    cd /var/lib && \
-    ~/apollo-{{ apollo_version }}/bin/apollo create apollobroker && \
-    ln -s /var/lib/apollobroker/bin/apollo-broker-service /etc/init.d/
-  when: not apollo.stat.exists
-
-- name: Configure broker
-  template: src=apollo.xml.j2 dest=/var/lib/apollobroker/etc/apollo.xml owner=root group=root mode=0644
+- name: Configure apollo broker
+  template: src=apollo.xml.j2 dest=/var/lib/apollobroker/etc/apollo.xml
   notify:
     - Restart apollo-broker-service
 

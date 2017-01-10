@@ -1,16 +1,32 @@
 ---
 
-- name: Add elasticsearch gpg key
-  apt_key: url=https://artifacts.elastic.co/GPG-KEY-elasticsearch state=present
+- name: Download elasticsearch < 5.0
+  get_url:
+    url: 'https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-{{ elasticsearch_version }}.deb'
+    dest: '/tmp/elasticsearch-{{ elasticsearch_version }}.deb'
+  when: elasticsearch_version|match('^[0-2]')
 
-- name: Add elasticsearch repo
-  apt_repository: repo='deb https://artifacts.elastic.co/packages/{{ elasticsearch_version }}/apt stable main' state=present
+- name: Download elasticsearch >= 5.0
+  get_url:
+    url: 'https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-{{ elasticsearch_version }}.deb'
+    dest: '/tmp/elasticsearch-{{ elasticsearch_version }}.deb'
+  when: not (elasticsearch_version|match('^[0-2]'))
 
 - name: Install elasticsearch
-  apt: name=elasticsearch state=present
+  apt: deb='/tmp/elasticsearch-{{ elasticsearch_version }}.deb' state=present
 
 - name: Make elasticsearch start automatically when the system boots up
-  shell: update-rc.d elasticsearch defaults 95 10
+  command: update-rc.d elasticsearch defaults 95 10
+
+- name: Configure elasticsearch jvm.options
+  template: src='jvm.options.j2' dest='/etc/elasticsearch/jvm.options'
+  notify:
+    - Restart elasticsearch
+
+- name: Configure elasticsearch elasticsearch.yml
+  template: src='elasticsearch.yml.j2' dest='/etc/elasticsearch/elasticsearch.yml'
+  notify:
+    - Restart elasticsearch
 
 - name: Start elasticsearch
   service: name=elasticsearch state=started

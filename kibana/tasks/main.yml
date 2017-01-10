@@ -1,16 +1,27 @@
 ---
 
-- name: Add kibana gpg key
-  apt_key: url=https://artifacts.elastic.co/GPG-KEY-elasticsearch state=present
+- name: Download kibana < 5.0
+  get_url:
+    url: 'https://download.elastic.co/kibana/kibana/kibana-{{ kibana_version }}-amd64.deb'
+    dest: '/tmp/kibana-{{ kibana_version }}.deb'
+  when: kibana_version|match('^[0-4]')
 
-- name: Add kibana repo
-  apt_repository: repo='deb https://artifacts.elastic.co/packages/{{ kibana_version }}/apt stable main' state=present
+- name: Download kibana >= 5.0
+  get_url:
+    url: 'https://artifacts.elastic.co/downloads/kibana/kibana-{{ kibana_version }}-amd64.deb'
+    dest: '/tmp/kibana-{{ kibana_version }}.deb'
+  when: not (kibana_version|match('^[0-4]'))
 
 - name: Install kibana
-  apt: name=kibana state=present
+  apt: deb='/tmp/kibana-{{ kibana_version }}.deb' state=present
 
 - name: Make kibana start automatically when the system boots up
-  shell: update-rc.d kibana defaults 95 10
+  command: update-rc.d kibana defaults 95 10
+
+- name: Configure kibana kibana.yml
+  template: src='kibana.yml.j2' dest='/etc/kibana/kibana.yml'
+  notify:
+    - Restart kibana
 
 - name: Start kibana
   service: name=kibana state=started
