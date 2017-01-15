@@ -1,0 +1,5 @@
+---
+
+elasticsearch_cerebro_version: '0.4.2'
+
+elasticsearch_cerebro_port: '9000'

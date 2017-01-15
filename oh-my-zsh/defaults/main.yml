@@ -8,5 +8,15 @@ workspace: '/var/www'
 
 zsh_theme: 'robbyrussell'
 zsh_editor: 'vim'
+zsh_disable_auto_update: true
+zsh_plugins:
+  - 'git'
+  - 'cp'
+  - 'command-not-found'
+  - 'gnu-utils'
+  - 'history'
+  - 'screen'
+  - 'ssh-agent'
+  - 'symfony2'
 zsh_additional_commands: |
   export IS_VM=true

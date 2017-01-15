@@ -17,6 +17,6 @@
   when: ('7.1' in php_versions)
 
 - name: Run apache using the first version from php_versions
-  shell: "a2enmod php{{ php_versions|first }}"
+  command: "a2enmod php{{ php_versions|first }}"
   notify:
     - Restart apache2

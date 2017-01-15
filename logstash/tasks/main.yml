@@ -1,13 +1,19 @@
 ---
 
-- name: Add logstash gpg key
-  apt_key: url=https://artifacts.elastic.co/GPG-KEY-elasticsearch state=present
+- name: Download logstash < 5.0
+  get_url:
+    url: 'https://download.elastic.co/logstash/logstash/packages/debian/logstash-{{ logstash_version }}_all.deb'
+    dest: '/tmp/logstash-{{ logstash_version }}.deb'
+  when: logstash_version|match('^[0-2]')
 
-- name: Add logstash repo
-  apt_repository: repo='deb https://artifacts.elastic.co/packages/{{ logstash_version }}/apt stable main' state=present
+- name: Download logstash >= 5.0
+  get_url:
+    url: 'https://artifacts.elastic.co/downloads/logstash/logstash-{{ logstash_version }}.deb'
+    dest: '/tmp/logstash-{{ logstash_version }}.deb'
+  when: not (logstash_version|match('^[0-2]'))
 
-- name: Install logstash in /opt/logstash/bin
-  apt: name=logstash state=present
+- name: Install logstash
+  apt: deb='/tmp/logstash-{{ logstash_version }}.deb' state=present
 
 - name: Configure logstash
   template: src=logstash.conf.j2 dest=/etc/logstash/conf.d/logstash.conf

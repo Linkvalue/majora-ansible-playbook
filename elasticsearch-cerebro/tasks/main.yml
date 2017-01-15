@@ -1,0 +1,18 @@
+---
+
+- name: Create /etc/cerebro directory
+  file: dest='/etc/cerebro' state=directory
+
+- name: Download elasticsearch-cerebro archive
+  get_url:
+    url: 'https://github.com/lmenezes/cerebro/releases/download/v{{ elasticsearch_cerebro_version }}/cerebro-{{ elasticsearch_cerebro_version }}.tgz'
+    dest: '/tmp/cerebro-{{ elasticsearch_cerebro_version }}.tgz'
+
+- name: Extract elasticsearch-cerebro archive in /etc/cerebro
+  command: 'tar zxf /tmp/cerebro-{{ elasticsearch_cerebro_version }}.tgz -C /etc/cerebro --strip-components=1'
+
+- name: Create /etc/cerebro/run.log file
+  file: dest='/etc/cerebro/run.log' state=touch mode=0666
+
+- name: Start elasticsearch-cerebro and redirect output to /etc/cerebro/run.log
+  shell: '/etc/cerebro/bin/cerebro -Dhttp.port={{ elasticsearch_cerebro_port }} > /etc/cerebro/run.log &'

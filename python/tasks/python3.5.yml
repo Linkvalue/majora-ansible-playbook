@@ -4,7 +4,7 @@
   apt: name=python3.5-complete state=latest
 
 - name: Install pip3.5
-  shell: python3.5 -m ensurepip
+  command: python3.5 -m ensurepip
 
 - name: Update pip3.5
   pip: name=pip state=latest executable='pip3.5'

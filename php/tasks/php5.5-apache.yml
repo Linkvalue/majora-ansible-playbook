@@ -9,4 +9,4 @@
   template: src=php.ini.j2 dest=/etc/php/5.5/apache2/php.ini owner=root group=root mode=0644
 
 - name: Disable apache mod-php5.5
-  shell: a2dismod php5.5
+  command: a2dismod php5.5

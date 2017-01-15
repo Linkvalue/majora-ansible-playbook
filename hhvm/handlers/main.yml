@@ -1,4 +1,0 @@
----
-
-- name: Restart hhvm
-  service: name=hhvm state=restarted
